@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Docker Tutorial</title>
+		<h1>Docker Tutorial</h1>
+		<h3>Toba Samuel - X00131398</h3>
+	</head>
+
+
+
+	<body style="background-color:powderblue;font-family:verdana">
+
+		<br>
+		<h1>Part 1</h1>
+		<h2>Section 1 - Creating a Dockerfile</h2>
+		<p>when we want to create a Dockerfile we should make sure we are in the correct directory first. 
+		So I used the command below to change directory to go into the right directory</p>
+		<p><b>cd</b></p>
+		<p>Then when we are in the right directory we can use the below command to create a dockerfile</p>
+		<p><b>sudo vi Dockerfile</b></p>
+		<p>Then you can copy the below code into the dockerfile and then press the escape key and type :wq to write and quit editing in the dockerfile.</p>
+		<p><b>FROM ubuntu:latest</b> - This is used to makes sure that the base image is python3.</p>
+		<p><b>COPY script.sh /</b> - This is used to copy all the files and directories to the container.</p>
+		<p><b>RUN chmod u+x /script.sh</b> - This is used to provide the commands and arguements to execute the container.</p>
+		<p><b>CMD ["/script.sh"]</b></p>
+		<p>You must run the code below to build the dockerfile.</p>
+		<p><b>docker build .</b></p>
+		<br>
+
+		<h2>Section 2 - Showing that Containers don't Virtualize</h2>
+		<p>If you get an error after running the docker build code then follow the steps below</p>
+		<p><b>1.</b> We can solve this error by creating a file with the name <i style="color:red;">script.sh</i></p>
+		<p><b>2.</b> The script <i style="color:red;">script.sh</i> should have some bash code to measure the hardware of the enviroment it is running on.</p>
+		<p><b>3.</b> With the below code one can number the CPU's to show the CPU specification.</p>
+		<p><b>#!/bin/bash</b></p>
+		<p><b>cpucount=$(grep "rocessor" /proc/cpuinfo | wc -l)</b></p>
+		<p><b>echo "CPU count: $cpucount"</b></p>
+		<p><b>1.</b> After you have put the above code into your <i style="color:red;">script.sh</i> file then rebuild it.</p>
+		<p><b>2.</b> Now you should run this script on the host and the output should be saved to <i style="color:red;">host.txt</i></p>
+		<p><b>3.</b> Using the commands seen above you should create a new dockerfile but this time save the output to <i style="color:red;">container.txt</i></p>
+		<p><b>4.</b> After the above step compare what is found in both <i style="color:red;">host.txt</i> and <i style="color:red;">container.txt</i></p>
+		<p><b>5.</b> If you notice that the output of the host and the container are the same, then we can safely say that containers don't virtualize hardware.</p>
+		<p><b>6.</b> To keep a record of your findings please write a <i style="color:red;">README.md</i> for this lab.</p>
+		<p><b>7.</b> Don't forget to <i style="color:red;">git add</i>, <i style="color:red;">git commit</i> and <i style="color:red;">git push</i> the new files.</p>
+
+		<br>
+		<h1>Part 2</h1>
+		<h2>How I Completed the CA</h2>
+		<p>As stated above when we want to create a Dockerfile we have to go into the correct directory first. 
+		So I used the command below to change directory to go into the right directory to create the needed folder.</p>
+		<p><b>cd</b></p>
+		<p>Then I used the command below to make a folder to store the needed files and called the folder CA1.</p>
+		<p><b>mkdir</b></p>
+		<p>I then changed directory to that folder. After that I used the command below to create a dockerfile.</p>
+		<p><b>sudo vi Dockerfile</b></p>
+		<p>I then copied the below code into the dockerfile and then pressed the escape key and typed :wq to write and quit editing in the dockerfile.</p>
+		<p><b>FROM python:3.9</b> - I used this to makes sure that the base image is python3.</p>
+		<p><b>WORKDIR /CA1</b> - This is the same as 'cd' on a terminal and it can also create folders too</p>
+		<p><b>COPY index.html /</b> - I used this to copy all the files and directories to the container.</p>
+		<p><b>CMD python3 -m http.server 8080</b> - I used this to provide the commands and arguements to execute the container.</p>
+		<p>I then entered the command below to make an index.html file.</p>
+		<p><b>sudo vi index.html</b></p>
+		<p>In this index.html file I entered the relevant html code needed to display the page you now see</p>
+		p>I then added the below code to build the dockerfile.</p>
+		<p><b>docker build .</b></p>
+		<p>After executing the commands above then my dockerfile was built. I then used the code below to execute the file with python3 on port 8080.</p>
+		<p><b>python3 -m http.server 8080</b></p>
+		<p>I then previewed the website by clicking the preview website button in the cloud shell terminal</p>
+		<p>After this I used the command <b>docker images</b> to see information about the recently created docker image. I saw that the Repository and Tags headings said "none".</p>
+		<p>In order to add a Repository and Tag I ran the command below. I found the image ID by using the code above <b>docker images</b></p>
+		<p><b>docker tag <i>Image_ID Repository_Name:Tag_Name</i></b></p>
+		<p>For example: <b>docker tag bc687e94929b eu.gcr.io/epapr-291011/ca1-image:recent</b><p>
+		<p>After this is used the command below to push the image.</p>
+		<p><b>docker push eu.gcr.io/epapr-291011/ca1-image:recent</b></p>
+		<p>To make sure that the file pushed I ran the command below.</p>
+		<p><b>gcloud container images list --repository eu.gcr.io/epapr-291011</b></p>
+		
+		<br>
+		
+		<h1>Part 3</h1>
+		<a href="https://www.educative.io/edpresso/what-is-the-workdir-command-in-docker">What is WORKDIR</a>
+		<br>
+		<a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/">Docker Best Practices</a>
+		<br>
+		<a href="https://codelabs.developers.google.com/codelabs/cloud-shell/#0">Google Cloud Shell Tutorial</a>
+		<br>
+		<a href="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/set_up_a_local_testing_server">Tutorial For Testing Server</a>
+	</body>
+	
+</html>
+
