@@ -1,12 +1,10 @@
 <template>
     <div class="row justify-content-center">
         <div class="col-md-5">
-            <h3 class="text-center">Edit User</h3>
-            <form @submit.prevent="updateUser(users, users.key)">
-                <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" class="form-control" v-model="user.name" required>
-                </div>
+            <br>
+            <h3 class="text-center">Enter Details</h3>
+            <br>
+            <form @submit.prevent="login">
 
                 <div class="form-group">
                     <label>Email</label>
@@ -14,7 +12,12 @@
                 </div>
 
                 <div class="form-group">
-                    <button class="btn btn-primary btn-block">Edit User</button>
+                    <label>Password</label>
+                    <input type="password" class="form-control" v-model="user.password" required>
+                </div>
+                <br>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block">Login</button>
                 </div>
             </form>
         </div>
@@ -24,13 +27,13 @@
 <script>
     import axios from "axios";
 export default {
-name: "UserEdit",
+name: "Login",
   data() {
     return {
       user: [],
-      name: "",
       email: "",
-      selected: {}
+      password: "",
+      error: ""
     };
   },
   async mounted() {
@@ -38,6 +41,19 @@ name: "UserEdit",
     this.users = response.data;
   },
   methods: {
+
+      login() {
+      let user = {
+        email: this.email,
+        password: this.password
+      }
+      axios.post('http://localhost:3000/login', user)
+        .then(res => {
+          //if successfull
+          console.log(res);
+        })
+    },
+    
     async updateUser(user, i) {
       const response = await axios.put("api/profileList/" + user._id, {
         name: this.user.name,

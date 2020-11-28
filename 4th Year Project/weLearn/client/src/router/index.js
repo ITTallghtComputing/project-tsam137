@@ -5,6 +5,17 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/register',
+    name: 'register',
+    component: () => import('../components/RegisterUser')
+  },
+
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('../components/Login')
+  },
+  {
     path: '/add',
     name: 'add',
     component: () => import('../components/UserCreate')

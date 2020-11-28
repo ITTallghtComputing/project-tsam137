@@ -39,35 +39,6 @@
             </table>
         </div>
     </div>
-
-
-
-
-    <!-- <div class="notification" v-for="(user, i) in users" :key="user._id">
-      <div class="columns">
-        <input class="column input" v-if="isSelected(user)" v-model="editedName" />
-        <input class="column input" v-if="isSelected(user)" v-model="editedEmail" />
-        <p v-else class="column">
-          <span class="tag is-primary">{{ i + 1}}</span>
-          {{ user.name }}
-          {{ user.email }}
-        </p>
-        <div class="column is-narrow">
-          <span
-            class="icon has-text-primary"
-            @click="isSelected(user) ?  unselect() : select(user)"
-          >
-            <i class="material-icons">{{isSelected(user) ? 'close': 'edit'}}</i>
-          </span>
-
-          <span
-            class="icon has-text-info"
-            @click="isSelected(user) ? updateUser(user, i) : removeUser(user, i)">
-            <i class="material-icons">{{isSelected(user) ? 'save': 'delete'}}</i>
-          </span>
-        </div>
-      </div>
-    </div> -->
   </div>
 </template>
 
@@ -84,9 +55,6 @@ export default {
       desiredLanguage: "",
       meetingPlatform: "",
       search: "",
-      editedName: "",
-      editedEmail: "",
-      selected: {}
     };
   },
   async mounted() {
@@ -102,7 +70,6 @@ export default {
     },
 
   methods: {
-  
 
     async addUser() {
       const response = await axios.post("api/profileList/", {
@@ -120,34 +87,11 @@ export default {
       this.meetingPlatform = "";
     },
 
-    
-
-    
     async removeUser(user, i) {
       await axios.delete("api/profileList/" + user._id);
       this.users.splice(i, 1);
+      this.$router.push('/');
     },
-    select(user) {
-      this.selected = user;
-      this.editedName = user.name;
-       this.editedEmail = user.email;
-    },
-    isSelected(user) {
-      return user._id === this.selected._id;
-    },
-    unselect() {
-      this.selected = {};
-      this.editedName = "";
-      this.editedEmail = "";
-    },
-    async updateUser(user, i) {
-      const response = await axios.put("api/profileList/" + user._id, {
-        name: this.editedName,
-        email: this.editedEmail
-      });
-      this.users[i] = response.data;
-      this.unselect();
-    }
   }
 };
 </script>
