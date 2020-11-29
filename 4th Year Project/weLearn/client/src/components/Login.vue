@@ -8,16 +8,17 @@
 
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="email" class="form-control" v-model="user.email" required>
+                    <input type="email" class="form-control" v-model="users.email" required>
                 </div>
 
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" class="form-control" v-model="user.password" required>
+                    <input type="password" class="form-control" v-model="users.password" required>
                 </div>
                 <br>
                 <div class="form-group">
                     <button class="btn btn-primary btn-block">Login</button>
+                {{ error }}
                 </div>
             </form>
         </div>
@@ -30,7 +31,7 @@ export default {
 name: "Login",
   data() {
     return {
-      user: [],
+      users: [],
       email: "",
       password: "",
       error: ""
@@ -43,14 +44,20 @@ name: "Login",
   methods: {
 
       login() {
-      let user = {
-        email: this.email,
-        password: this.password
-      }
-      axios.post('http://localhost:3000/login', user)
+      axios.post('http://localhost:3000/login', {
+        email: this.users.email,
+        password: this.users.password
+      })
         .then(res => {
           //if successfull
-          console.log(res);
+          if (res.status === 200) {
+            localStorage.setItem('token', res.data.token);
+            this.$router.push('/');
+          }
+        }, err => {
+          console.log(err.response);
+          console.log(this.users.email, this.users.password);
+          this.error = err.response.data.error
         })
     },
     

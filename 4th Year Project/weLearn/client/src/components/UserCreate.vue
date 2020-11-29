@@ -38,6 +38,7 @@
                 <div class="form-group">
                     <button class="btn btn-primary btn-block">Add User</button>
                 </div>
+                {{ error }}
             </form>
         </div>
     </div>
@@ -57,6 +58,7 @@ export default {
       motherTongue: "",
       desiredLanguage: "",
       meetingPlatform: "",
+      error: "",
       editedName: "",
       editedEmail: "",
       selected: {}
@@ -86,7 +88,7 @@ export default {
       this.users.desiredLanguage = "",
       this.users.meetingPlatform = ""
       this.$router.push('/');
-    },
+    }, 
 
     // signup() {
     //   let newUser = {
