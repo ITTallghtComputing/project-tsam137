@@ -2,7 +2,7 @@
   <div id="create">
     <div class="row justify-content-center">
         <div class="col-md-7">
-            <h3 class="text-center">Register User</h3>
+            <h3 class="text-center">Register Here</h3>
             <br>
             <form @submit.prevent="addUser">
                 <div class="form-group">
@@ -36,22 +36,19 @@
                 </div>
 
                 <div class="form-group">
-                    <button class="btn btn-primary btn-block">Add User</button>
+                    <button class="btn btn-primary btn-block">Register</button>
                 </div>
+                {{ error }}
             </form>
         </div>
     </div>
-
-      <!-- <div class="control">
-        <a class="button is-info" @click="addUser" :disabled="!name">Add</a>
-      </div> -->
   </div>
 </template>
 
 <script>
 import axios from "axios";
 export default {
-  name: "UserList",
+  name: "RegisterUser",
   data() {
     return {
       users: [],
@@ -61,9 +58,11 @@ export default {
       motherTongue: "",
       desiredLanguage: "",
       meetingPlatform: "",
+      error: "",
       editedName: "",
       editedEmail: "",
       selected: {}
+      
     };
   },
   async mounted() {
@@ -88,16 +87,22 @@ export default {
       this.users.motherTongue = "",
       this.users.desiredLanguage = "",
       this.users.meetingPlatform = ""
-    },
+      this.$router.push('/');
+    }, 
 
-    async updateUser(user, i) {
-      const response = await axios.put("api/profileList/" + user._id, {
-        name: this.editedName,
-        email: this.editedEmail
-      });
-      this.users[i] = response.data;
-      this.unselect();
-    }
+    // signup() {
+    //   let newUser = {
+    //     name: this.users.name,
+    //     email: this.users.email,
+    //     password: this.users.password, 
+    //     motherTongue: this.users.motherTongue,
+    //     desiredLanguage: this.users.desiredLanguage,
+    //     meetingPlatform: this.users.meetingPlatform
+    //   }
+    //   axios.post('api/profileList/', newUser)
+         
+    // }
+  
   }
 };
 </script>

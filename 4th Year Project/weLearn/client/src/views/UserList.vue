@@ -25,14 +25,18 @@
                         <td>{{ user.desiredLanguage }}</td>
                         <td>{{ user.meetingPlatform }}</td>
                      
-                          <td>
+                          <!-- <td>
                             <router-link :to="{name: 'edit', params: {id: user._id }}" class="btn btn-primary">Edit
+                            </router-link>
+                          </td> -->
+                          <td>
+                            <router-link :to="{name: '', params: {id: user._id }}" class="btn btn-primary fa fa-home">🗨
                             </router-link>
                           </td>
                
-                          <td>
+                          <!-- <td>
                             <button @click.prevent="removeUser(user, user.key)" class="btn btn-danger">Delete</button>
-                          </td>
+                          </td> -->
               
                     </tr>
                 </tbody>
@@ -70,27 +74,10 @@ export default {
     },
 
   methods: {
-
-    async addUser() {
-      const response = await axios.post("api/profileList/", {
-        name: this.users.name,
-        email: this.users.email,
-        motherTongue: this.users.motherTongue,
-        desiredLanguage: this.users.desiredLanguage,
-        meetingPlatform: this.users.meetingPlatform
-      });
-      this.users.push(response.data);
-      this.name = "";
-      this.email = "";
-      this.motherTongue = "";
-      this.desiredLanguage = "";
-      this.meetingPlatform = "";
-    },
-
     async removeUser(user, i) {
       await axios.delete("api/profileList/" + user._id);
       this.users.splice(i, 1);
-      this.$router.push('/');
+      this.$router.push('/list');
     },
   }
 };
