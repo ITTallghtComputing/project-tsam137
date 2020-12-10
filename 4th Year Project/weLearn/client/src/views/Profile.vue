@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 v-if="user._id != '5fcd335aba244d058e44c002'">Welcome {{user.name}} 😊</h2>
+    <h2 v-if="user._id != '5fcd335aba244d058e44c002'">Welcome {{user.name}} 👨‍🎓</h2>
     <h2 v-else-if="user._id == '5fcd335aba244d058e44c002'">Welcome {{user.name}} 👨‍✈️</h2>
     <h5 v-if="user._id != '5fcd335aba244d058e44c002'">Ready to Learn?</h5>
     <h5 v-else-if="user._id == '5fcd335aba244d058e44c002'">Ready to Administrate?</h5>

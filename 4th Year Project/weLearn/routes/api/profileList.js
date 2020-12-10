@@ -104,84 +104,23 @@ return res.json({
 });
 });
 
-// router.put('/:id', async (req, res) => {
-//     const { id } = req.params
-//     try {
-//         const response = await ProfilesList.findByIdAndUpdate(id, newUser)
-//         if (!response) throw Error('Something went wrong ')
-//         const updated = { ...response._doc, ...req.body }
-//         res.status(200).json(updated)
-//     } catch (error) {
-//         res.status(500).json({ message: error.message })
-//     }
-// })
-
-/*
-    GET Method single User by Id
-*/
-router.get('/:id', (req, res, next) => {
-    let id = req.params.id;
-    ProfilesList.findOne({
-        _id: id
-    }).then((user) => {
-        return res.json({
-            success: true,
-            post: user
-        });
-    }).catch((err) => {
-        return res.json({
-            success: false,
-            msg: 'Unable to get the User.',
-            err: err
-        });
-    });
-});
 
 /*
     PUT Method to Update single User by Id
 */
 
-router.put('/', (req, res, next) => {
+router.put('/:id', async (req, res) => {
+    const { id } = req.params
 
-    let email = req.body.email;
-    let name = req.body.name;
-    let password = req.body.password;
-    let motherTongue = req.body.motherTongue;
-    let desiredLanguage = req.body.desiredLanguage;
-    let meetingPlatform = req.body.meetingPlatform;
-
-    let id = req.body._id;
-    ProfilesList.findOne({
-        _id: id
-    }).then((user) => {
-        user.email= email;
-        user.name = name;
-        user.password = password;
-        user.motherTongue = motherTongue;
-        user.desiredLanguage = desiredLanguage;
-        user.meetingPlatform = meetingPlatform;
-        user.save()
-            .then((post) => {
-                return res.json({
-                    success: true,
-                    msg: 'User updated successfully',
-                    post: user
-                });
-            }).catch((err) => {
-                return res.json({
-                    success: false,
-                    msg: 'Unable to update the User.',
-                    err: err
-                });
-            });
-    }).catch((err) => {
-        return res.json({
-            success: false,
-            message: 'Opps! something went wrong.',
-            err: err
-        });
-    });
-});
+    try {
+        const response = await ProfilesList.findByIdAndUpdate(id, req.body)
+        if (!response) throw Error('Something went wrong ')
+        const updated = { ...response._doc, ...req.body }
+        res.status(200).json(updated)
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+})
 
 
 router.delete('/:id', async (req, res) => {
