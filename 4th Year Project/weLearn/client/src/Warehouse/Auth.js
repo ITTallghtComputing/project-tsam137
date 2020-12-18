@@ -5,7 +5,8 @@ const state = {
     token: localStorage.getItem('token') || '',
     user: {},
     status: '',
-    error: null
+    error: null,
+    id: ''
 };
 
 const getters = {
@@ -77,7 +78,16 @@ const actions = {
         delete axios.defaults.headers.common['Authorization'];
         router.push('/');
         return
-    }
+    },
+    async getUserProfile({
+        commit,
+        id ="",
+    }) {
+        commit('profile_request');
+        let res = await axios.get('/api/profileList/' + id)
+        commit('user_profile', res.data.user)
+        return res;
+    },
 };
 
 const mutations = {

@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const User = require('../models/ProfilesList');
 const key = require('./keys').secret;
 
+/* User Passport */
 const opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = key;

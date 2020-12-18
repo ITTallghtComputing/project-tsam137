@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <Navbar/>
-    <br>
-    <br>
+    <Navbar />
+    <br />
+    <br />
     <div class="container">
-      <Errors v-if="error" :msg="error"/>
-      <router-view/>
+      <Errors v-if="error" :msg="error" />
+      <router-view />
     </div>
   </div>
 </template>
@@ -16,11 +16,11 @@ import Errors from "@/components/Error";
 export default {
   components: {
     Navbar,
-    Errors
+    Errors,
   },
   computed: {
-    ...mapGetters(["error"])
-  }
+    ...mapGetters(["error"]),
+  },
 };
 </script>
 <style>

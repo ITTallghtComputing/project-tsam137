@@ -1,6 +1,11 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <router-link class="navbar-brand" to="/">🎓 weLearn</router-link>
+    <li class="nav-item" v-if="isLoggedIn">
+      <router-link class="navbar-brand" to="/list">🎓 weLearn</router-link>
+    </li>
+    <li class="nav-item" v-else-if="!isLoggedIn">
+      <router-link class="navbar-brand" to="/">🎓 weLearn</router-link>
+    </li>
     <button
       class="navbar-toggler"
       type="button"
@@ -30,9 +35,10 @@
           <router-link to="/profile" class="nav-link">My Profile</router-link>
         </li>
         <li class="nav-item" v-if="isLoggedIn">
-          <a to="/logout" class="nav-link" @click.prevent="logoutUser">Logout</a>
+          <a to="/logout" class="nav-link" @click.prevent="logoutUser"
+            >Logout</a
+          >
         </li>
-        
       </ul>
     </div>
   </nav>
@@ -41,22 +47,26 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 export default {
+  name: "Navbar",
   computed: {
     ...mapGetters(["isLoggedIn"]),
-    ...mapGetters(["user"])
+    ...mapGetters(["user"]),
   },
   methods: {
     ...mapActions(["logout"]),
     logoutUser() {
       this.logout();
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style>
-.navbar-dark .navbar-nav .active>.nav-link, .navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .nav-link.show, .navbar-dark .navbar-nav .show>.nav-link {
-    color: rgba(255,255,255,.5);
+.navbar-dark .navbar-nav .active > .nav-link,
+.navbar-dark .navbar-nav .nav-link.active,
+.navbar-dark .navbar-nav .nav-link.show,
+.navbar-dark .navbar-nav .show > .nav-link {
+  color: rgba(255, 255, 255, 0.5);
 }
 </style>
 s

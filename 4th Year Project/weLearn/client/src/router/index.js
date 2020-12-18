@@ -4,6 +4,7 @@ import store from '../../src/store';
 
 Vue.use(VueRouter)
 
+/* Paths To all Pages */
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -45,6 +46,14 @@ const router = new VueRouter({
     meta: {
       requiresAuth: true
     }
+  },
+  {
+    path: '/userProfile',
+    name: 'userProfile',
+    component: () => import('../views/UserProfile.vue'),
+    // meta: {
+    //   requiresAuth: true
+    // }
   }
 ]
 })

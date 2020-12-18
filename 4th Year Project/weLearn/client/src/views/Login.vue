@@ -16,7 +16,7 @@
                 name="email"
                 v-model="email"
                 class="form-control"
-              >
+              />
             </div>
             <div class="form-group">
               <label for="password">Password</label>
@@ -27,11 +27,13 @@
                 name="password"
                 id="password"
                 v-model="password"
-              >
+              />
             </div>
-            <input type="submit" class="btn btn-primary" value="Login">
+            <input type="submit" class="btn btn-primary" value="Login" />
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <router-link to="/register" class="card-link">Need and account?</router-link>
+            <router-link to="/register" class="card-link"
+              >Need and account?</router-link
+            >
           </form>
         </div>
       </div>
@@ -45,7 +47,7 @@ export default {
   data() {
     return {
       email: "",
-      password: ""
+      password: "",
     };
   },
   methods: {
@@ -53,19 +55,19 @@ export default {
     loginUser() {
       let user = {
         email: this.email,
-        password: this.password
+        password: this.password,
       };
       this.login(user)
-        .then(res => {
+        .then((res) => {
           if (res.data.success) {
             this.$router.push("/profile");
           }
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

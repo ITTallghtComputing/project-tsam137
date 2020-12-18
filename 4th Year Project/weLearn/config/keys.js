@@ -1,3 +1,4 @@
+/* Key to access Database */
 if (process.env.NODE_ENV === 'production') {
     module.exports = {
         mongoURI: "mongodb+srv://admin:welearn127@welearn.avb3e.mongodb.net/welearndb?retryWrites=true&w=majority?authSource=admin",

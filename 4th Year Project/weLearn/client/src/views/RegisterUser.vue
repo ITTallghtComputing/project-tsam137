@@ -1,46 +1,76 @@
 <template>
   <div id="create">
     <div class="row justify-content-center">
-        <div class="col-md-7">
-            <h3 class="text-center">Register Here</h3>
-            <br>
-            <form @submit.prevent="addUser">
-                <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" class="form-control" v-model="users.name" required>
-                </div>
+      <div class="col-md-7">
+        <h3 class="text-center">Register Here</h3>
+        <br />
+        <form @submit.prevent="addUser">
+          <div class="form-group">
+            <label>Name</label>
+            <input
+              type="text"
+              class="form-control"
+              v-model="users.name"
+              required
+            />
+          </div>
 
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" class="form-control" v-model="users.email" required>
-                </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input
+              type="email"
+              class="form-control"
+              v-model="users.email"
+              required
+            />
+          </div>
 
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-control" v-model="users.password" required>
-                </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input
+              type="password"
+              class="form-control"
+              v-model="users.password"
+              required
+            />
+          </div>
 
-                <div class="form-group">
-                    <label>Mother Tongue</label>
-                    <input type="text" class="form-control" v-model="users.motherTongue" required>
-                </div>
+          <div class="form-group">
+            <label>Mother Tongue</label>
+            <input
+              type="text"
+              class="form-control"
+              v-model="users.motherTongue"
+              required
+            />
+          </div>
 
-                <div class="form-group">
-                    <label>Desired Language</label>
-                    <input type="text" class="form-control" v-model="users.desiredLanguage" required>
-                </div>
+          <div class="form-group">
+            <label>Desired Language</label>
+            <input
+              type="text"
+              class="form-control"
+              v-model="users.desiredLanguage"
+              required
+            />
+          </div>
 
-                <div class="form-group">
-                    <label>Meeting Platform</label>
-                    <input type="text" class="form-control" v-model="users.meetingPlatform" required>
-                </div>
+          <div class="form-group">
+            <label>Meeting Platform</label>
+            <input
+              type="text"
+              class="form-control"
+              v-model="users.meetingPlatform"
+              required
+            />
+          </div>
 
-                <div class="form-group">
-                    <button class="btn btn-primary btn-block">Register</button>
-                </div>
-                {{ error }}
-            </form>
-        </div>
+          <div class="form-group">
+            <button class="btn btn-primary btn-block">Register</button>
+          </div>
+          {{ error }}
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -61,8 +91,7 @@ export default {
       error: "",
       editedName: "",
       editedEmail: "",
-      selected: {}
-      
+      selected: {},
     };
   },
   async mounted() {
@@ -70,52 +99,51 @@ export default {
     this.users = response.data;
   },
   methods: {
-
     async addUser() {
       const response = await axios.post("api/profileList/", {
         name: this.users.name,
         email: this.users.email,
-        password: this.users.password, 
+        password: this.users.password,
         motherTongue: this.users.motherTongue,
         desiredLanguage: this.users.desiredLanguage,
-        meetingPlatform: this.users.meetingPlatform
+        meetingPlatform: this.users.meetingPlatform,
       });
       this.users.push(response.data);
       this.name = "";
       this.email = "";
       this.password = "";
-      this.users.motherTongue = "",
-      this.users.desiredLanguage = "",
-      this.users.meetingPlatform = ""
-      this.$router.push('/');
-    }, 
+      (this.users.motherTongue = ""),
+        (this.users.desiredLanguage = ""),
+        (this.users.meetingPlatform = "");
+      this.$router.push("/");
+    },
 
     // signup() {
     //   let newUser = {
     //     name: this.users.name,
     //     email: this.users.email,
-    //     password: this.users.password, 
+    //     password: this.users.password,
     //     motherTongue: this.users.motherTongue,
     //     desiredLanguage: this.users.desiredLanguage,
     //     meetingPlatform: this.users.meetingPlatform
     //   }
     //   axios.post('api/profileList/', newUser)
-         
+
     // }
-  
-  }
+  },
 };
 </script>
 
 <style>
-.table td, .table th {
-    padding: .75rem;
-    vertical-align: top;
-    border-top: 1px solid #dee2e6;
+.table td,
+.table th {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
 }
 
 .label {
-    display: inline-block;
-    margin-bottom: .5rem;
+  display: inline-block;
+  margin-bottom: 0.5rem;
 }
 </style>

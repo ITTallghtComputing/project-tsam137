@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose')
 
+/* User Schema */
 const ProfilesListSchema = new Schema({
     name: {
         type: String,
