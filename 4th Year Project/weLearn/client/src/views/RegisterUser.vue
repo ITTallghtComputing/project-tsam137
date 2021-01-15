@@ -117,19 +117,6 @@ export default {
         (this.users.meetingPlatform = "");
       this.$router.push("/");
     },
-
-    // signup() {
-    //   let newUser = {
-    //     name: this.users.name,
-    //     email: this.users.email,
-    //     password: this.users.password,
-    //     motherTongue: this.users.motherTongue,
-    //     desiredLanguage: this.users.desiredLanguage,
-    //     meetingPlatform: this.users.meetingPlatform
-    //   }
-    //   axios.post('api/profileList/', newUser)
-
-    // }
   },
 };
 </script>
