@@ -40,6 +40,11 @@ const router = new VueRouter({
     component: () => import('../views/UserEdit')
   },
   {
+    path: '/chatroom/',
+    name: 'chatroom',
+    component: () => import('../views/Chatroom')
+  },
+  {
     path: '/profile',
     name: 'profile',
     component: () => import('../views/Profile.vue'),

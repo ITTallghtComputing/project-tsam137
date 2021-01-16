@@ -36,3 +36,4 @@ const ProfilesListSchema = new Schema({
 const ProfilesList = model('ProfilesList', ProfilesListSchema)
 
 module.exports = ProfilesList
+

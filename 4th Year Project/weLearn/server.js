@@ -8,10 +8,30 @@ const bodyParser = require('body-parser')
 const profileListRoutes = require('./routes/api/profileList')
 const path = require('path')
 const passport = require('passport');
+const http = require("http").Server(app);
+// const io = require("socket.io")(http);
+const ChatModel = require('./models/ChatModel')
 
 app.use(cors())
 app.use(morgan('tiny'))
 app.use(bodyParser.json())
+
+const io = require("socket.io")(http, {
+	cors: {
+	  origin: "http://localhost:8080",
+	  methods: ["GET", "POST"]
+	}
+  });
+  
+  
+
+
+ let userss = [];
+let messages = [];
+
+
+
+
 
 // Middlewares
 // Form Data Middleware
@@ -47,6 +67,7 @@ const users = require('./routes/api/profileList');
 app.use('/api/profileList', users);
 
 
+
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/dist'))
     app.get('*', (req, res) => {
@@ -55,4 +76,48 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 
-app.listen(PORT, () => console.log(`App listening at http://localhost:${PORT}`))
+io.on("connection", socket => {
+	socket.emit('loggedIn', {
+		userss: userss.map(s => s.username),
+		messages: messages
+	});
+
+	socket.on('newuser', username => {
+		console.log(`${username} has arrived at the party.`);
+		socket.username = username;
+		
+		userss.push(socket);
+
+		io.emit('userOnline', socket.username);
+	});
+
+	socket.on('msg', msg => {
+		let message = new ChatModel({
+			username: socket.username,
+			msg: msg
+		});
+
+		message.save((err, result) => {
+			if (err) throw err;
+
+			messages.push(result);
+
+			io.emit('msg', result);
+		});
+	});
+	
+	// Disconnect
+	socket.on("disconnect", () => {
+		console.log(`${socket.username} has left the party.`);
+		io.emit("userLeft", socket.username);
+		userss.splice(userss.indexOf(socket), 1);
+	});
+});
+
+
+
+// app.listen(PORT, () => console.log(`App listening at http://localhost:${PORT}`))
+
+http.listen(process.env.PORT || 3000, () => {
+	console.log("Listening on port %s", process.env.PORT || 3000);
+});
