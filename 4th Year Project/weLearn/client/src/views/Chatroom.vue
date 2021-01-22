@@ -4,6 +4,7 @@
 			<h1>Chatroom</h1>
 			<p class="username">Name: {{ user.name }}</p>
 			<p class="online">Online: {{ userss.length }}</p>
+
 		</div>
 		<ChatroomApp v-bind:messages="messages" v-on:sendMessage="this.sendMessage" />
 	</div>
@@ -24,7 +25,9 @@ export default {
 			username: "",
 			socket: io("http://localhost:3000"),
 			messages: [],
-			userss: []
+			userss: [],
+			name: "Anonymous",
+			id: "0"
 		}
 	},
 	methods: {
@@ -54,13 +57,14 @@ export default {
 		
 	},
 	mounted: function () {
-		this.username = prompt("What is your username?", "Anonymous");
-		if (!this.username) {
-			this.username = "Ready"
-		}
+		console.log(this.id),
+		this.name = this.$route.params.name;
+		this.username = this.name
 		this.joinServer();
 	},
 	created() {
+	this.name = this.$route.params.name;
+	this.id = this.$route.params.id;
     this.getProfile();
   },
 }

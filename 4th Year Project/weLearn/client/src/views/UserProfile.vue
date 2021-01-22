@@ -26,8 +26,8 @@
     <td>
                 <router-link
                   :to="{ name: '', params: { id: user._id } }"
-                  class="btn btn-primary fa fa-home"
-                  >🗨
+                  class="btn btn-primary"
+                  >🎥
                 </router-link>
               </td>
   </div>

@@ -1,0 +1,10 @@
+{
+    "music":[
+        {
+            "id":1,
+            "name":"Premium Account",
+            "price": 10000,
+            "imgName": "logo.png"
+        }
+    ]
+}

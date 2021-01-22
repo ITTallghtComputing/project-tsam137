@@ -40,14 +40,33 @@ const router = new VueRouter({
     component: () => import('../views/UserEdit')
   },
   {
-    path: '/chatroom/',
+    path: '/room',
+    name: 'room',
+    component: () => import('../views/Room.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/chatroom',
     name: 'chatroom',
-    component: () => import('../views/Chatroom')
+    component: () => import('../views/Chatroom'),
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/profile',
     name: 'profile',
     component: () => import('../views/Profile.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/premium',
+    name: 'premium',
+    component: () => import('../views/Premium.vue'),
     meta: {
       requiresAuth: true
     }

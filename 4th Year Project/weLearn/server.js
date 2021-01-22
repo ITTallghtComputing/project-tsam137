@@ -1,3 +1,10 @@
+if (process.env.NODE_ENV !== 'production') {
+	require('dotenv').config()
+  }
+
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY
+const stripePublicKey = process.env.STRIPE_PUBLIC_KEY
+
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
@@ -11,10 +18,16 @@ const passport = require('passport');
 const http = require("http").Server(app);
 // const io = require("socket.io")(http);
 const ChatModel = require('./models/ChatModel')
+const fs = require('fs')
+const stripe = require('stripe')(stripeSecretKey)
 
 app.use(cors())
 app.use(morgan('tiny'))
 app.use(bodyParser.json())
+
+mongoose.connect("mongodb://localhost:27017/chatapp");
+
+
 
 const io = require("socket.io")(http, {
 	cors: {
@@ -23,14 +36,10 @@ const io = require("socket.io")(http, {
 	}
   });
   
-  
 
 
  let userss = [];
 let messages = [];
-
-
-
 
 
 // Middlewares
