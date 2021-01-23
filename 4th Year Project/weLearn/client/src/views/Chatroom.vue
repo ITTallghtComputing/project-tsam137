@@ -1,12 +1,15 @@
 <template>
 	<div id="app">
-		<div class="header">
+		<div id="container">
+			<div class="header">
 			<h1>Chatroom</h1>
 			<p class="username">Name: {{ user.name }}</p>
 			<p class="online">Online: {{ userss.length }}</p>
 
 		</div>
 		<ChatroomApp v-bind:messages="messages" v-on:sendMessage="this.sendMessage" />
+		</div>
+		
 	</div>
 </template>
 
@@ -82,7 +85,18 @@ body {
 	flex-direction: column;
 	height: 100vh;
 	width: 100%;
+	// max-width: 768px;
+	margin: 0 auto;
+	padding: 15px;
+	box-sizing: border-box;
+}
+#container{
 	max-width: 768px;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	width: 100%;
+	// max-width: 768px;
 	margin: 0 auto;
 	padding: 15px;
 	box-sizing: border-box;

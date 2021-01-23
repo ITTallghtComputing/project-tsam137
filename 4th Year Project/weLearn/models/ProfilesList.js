@@ -30,6 +30,9 @@ const ProfilesListSchema = new Schema({
     meetingPlatform: {
         type: String,
         required: true,
+    },
+    premium: {
+        type: Boolean,
     }
 })
 

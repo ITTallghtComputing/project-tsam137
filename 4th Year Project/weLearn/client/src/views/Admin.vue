@@ -19,6 +19,7 @@
               <th>Mother Tongue</th>
               <th>Desired Language</th>
               <th>Meeting Platform</th>
+              <th>Premium</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -29,6 +30,7 @@
               <td>{{ user.motherTongue }}</td>
               <td>{{ user.desiredLanguage }}</td>
               <td>{{ user.meetingPlatform }}</td>
+              <td>{{ user.premium }}</td>
 
               <td>
                 <router-link
@@ -66,6 +68,7 @@ export default {
       motherTongue: "",
       desiredLanguage: "",
       meetingPlatform: "",
+      premium: "",
       search: "",
     };
   },

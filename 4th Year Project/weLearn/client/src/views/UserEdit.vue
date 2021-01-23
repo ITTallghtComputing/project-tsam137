@@ -63,6 +63,17 @@
             placeholder="Enter Meeting Platform"
           />
         </div>
+        <div class="form-group col-md-12">
+          <label for="title"> Premium </label>
+          <input
+            type="text"
+            id="premium"
+            v-model="user.premium"
+            name="title"
+            class="form-control"
+            placeholder="Is this customer Premium?"
+          />
+        </div>
         <div class="form-group col-md-4 pull-right">
           <button class="btn btn-primary" type="submit">Edit User</button>
         </div>
@@ -91,6 +102,7 @@ export default {
         motherTongue: this.user.motherTongue,
         desiredLanguage: this.user.desiredLanguage,
         meetingPlatform: this.user.meetingPlatform,
+        premium: this.user.premium,
       };
       axios.put(`http://localhost:3000/api/profileList/${this.id}`, userData);
       this.$router.push("/admin");
