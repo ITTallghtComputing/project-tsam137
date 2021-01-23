@@ -34,7 +34,7 @@
               <td>
                 <router-link
                   :to="{ name: 'userProfile', params: { id: user._id } }"
-                  class="btn btn-primary fa fa-home"
+                  class="btn btn-primary "
                   >👀
                 </router-link>
               </td>

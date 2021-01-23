@@ -20,7 +20,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item" v-if="isLoggedIn">
-          <router-link to="/list" class="nav-link">Show Profiles</router-link>
+          <router-link to="/list" class="nav-link"><span class="fa fa-users"></span> Show Profiles</router-link>
         </li>
         <li class="nav-item" v-if="user._id == '5fcd335aba244d058e44c002'">
           <router-link to="/admin" class="nav-link">Admin Profiles</router-link>
@@ -32,14 +32,14 @@
           <router-link to="/register" class="nav-link">Register</router-link>
         </li>
         <li class="nav-item" v-if="isLoggedIn">
-          <router-link to="/profile" class="nav-link">My Profile</router-link>
+          <router-link to="/profile" class="nav-link"> <span class="	fa fa-user-circle"></span> My Profile</router-link>
         </li>
         <li class="nav-item" v-if="isLoggedIn">
-          <router-link to="/room" class="nav-link">Chatroom</router-link>
+          <router-link to="/room" class="nav-link"> <span class="	far fa-comments"></span> Chatroom</router-link>
         </li>
         <li class="nav-item" v-if="isLoggedIn">
           <li class="nav-item" v-if="!(user.premium)">
-          <router-link :to="{ name: 'premium', params: { id: user._id, premium: user.premium } }" class="nav-link">Premium</router-link>
+          <router-link :to="{ name: 'premium', params: { id: user._id, premium: user.premium } }" class="nav-link">👑 Premium</router-link>
           
         </li>
         <li class="nav-item" v-if="isLoggedIn">
