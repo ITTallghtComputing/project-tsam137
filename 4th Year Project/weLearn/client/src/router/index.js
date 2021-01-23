@@ -64,7 +64,7 @@ const router = new VueRouter({
     }
   },
   {
-    path: '/premium',
+    path: '/premium/:id',
     name: 'premium',
     component: () => import('../views/Premium.vue'),
     meta: {

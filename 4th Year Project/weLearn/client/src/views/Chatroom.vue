@@ -5,9 +5,20 @@
 			<h1>Chatroom</h1>
 			<p class="username">Name: {{ user.name }}</p>
 			<p class="online">Online: {{ userss.length }}</p>
-
+			
 		</div>
-		<ChatroomApp v-bind:messages="messages" v-on:sendMessage="this.sendMessage" />
+		<div v-if="user.premium">
+			<ChatroomApp v-bind:messages="messages" v-on:sendMessage="this.sendMessage" />
+		</div>
+		<div v-else-if="!user.premium">
+			<p class="count">Messages left: {{ count }} </p>
+			<p>Buy Premium for Unlimited Messages</p>
+			<div class="messageBox" v-if="count>0">
+			
+			<ChatroomApp v-bind:messages="messages" v-on:sendMessage="this.sendMessage" />
+		</div>
+		</div>
+		
 		</div>
 		
 	</div>
@@ -15,6 +26,7 @@
 
 <script>
 import io from 'socket.io-client';
+import axios from "axios";
 import ChatroomApp from './ChatroomApp';
 import { mapActions, mapGetters } from "vuex";
 export default {
@@ -30,7 +42,9 @@ export default {
 			messages: [],
 			userss: [],
 			name: "Anonymous",
-			id: "0"
+			id: "0",
+			count: 10,
+			userData: {}
 		}
 	},
 	methods: {
@@ -56,14 +70,18 @@ export default {
 		},
 		sendMessage: function (message) {
 			this.socket.emit('msg', message);
+			this.count = this.count-1
 		},
 		
 	},
 	mounted: function () {
 		console.log(this.id),
 		this.name = this.$route.params.name;
-		this.username = this.name
 		this.joinServer();
+		const response =  axios.get(`api/profileList/${this.id}`);
+        this.userData = response.data;
+		console.log(this.userData);
+		this.username = this.name
 	},
 	created() {
 	this.name = this.$route.params.name;

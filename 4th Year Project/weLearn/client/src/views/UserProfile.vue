@@ -6,7 +6,8 @@
          </small> -->
     </h4>
 
-    <h2><span>{{ user.name }}</span>'s Profile</h2>
+    <h2 v-if="user.premium">👑 <span>{{ user.name }}</span>'s Premium Profile</h2>
+    <h2 v-else-if="!user.premium"><span>{{ user.name }}</span>'s Profile</h2>
     <br />
 
     <div class="card" v-if="user">
@@ -19,6 +20,9 @@
         </li>
         <li class="list-group-item">
           Meeting Platform: {{ user.meetingPlatform }}
+        </li>
+        <li class="list-group-item">
+          Premium Account: {{ user.premium }}
         </li>
       </ul>
     </div>

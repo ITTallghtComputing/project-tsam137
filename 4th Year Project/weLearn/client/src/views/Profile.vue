@@ -6,18 +6,23 @@
     <h2 v-else-if="user._id == '5fcd335aba244d058e44c002'">
       Welcome {{ user.name }} 👨‍✈️
     </h2>
-    <h2 v-if="(user.premium)">
-      You are a Premium user {{ user.name }} 
-    </h2>
-    <h2 v-else-if="!(user.premium)">
-      You are NOT a Premium user {{ user.name }} 
-    </h2>
-    <h5 v-if="user._id != '5fcd335aba244d058e44c002'">Ready to Learn?</h5>
-    <h5 v-else-if="user._id == '5fcd335aba244d058e44c002'">
-      Ready to Administrate?
-    </h5>
+    <br>
+    <h3 v-if="!(user.premium)">
+      It seems you are not a Premium user {{ user.name }} 
+    </h3>
+    <p v-if="!(user.premium)">
+      Click on Premium in your navigation bar to purchase Premium for only €9.98 and get loads of cool features.
+    </p>
+    <br>
     <br />
-    <h2 v-if="user._id != '5fcd335aba244d058e44c002'">Profile</h2>
+    <div v-if="user._id != '5fcd335aba244d058e44c002'">
+    <h2 v-if="user.premium">
+      👑 Premium Profile
+    </h2>
+    <h2 v-else-if="!user.premium">
+      Regular Profile
+    </h2>
+    </div>
     <h2 v-else-if="user._id == '5fcd335aba244d058e44c002'">Admin Profile</h2>
     <br />
     <div class="card" v-if="user">
@@ -30,6 +35,9 @@
         </li>
         <li class="list-group-item">
           Meeting Platform: {{ user.meetingPlatform }}
+        </li>
+        <li class="list-group-item">
+          Premium Account: {{ user.premium }}
         </li>
       </ul>
     </div>

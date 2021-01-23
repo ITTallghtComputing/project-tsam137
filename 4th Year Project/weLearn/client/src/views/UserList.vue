@@ -24,7 +24,8 @@
           </thead>
           <tbody>
             <tr v-for="user in filteredUsers" :key="user._id">
-              <td>{{ user.name }}</td>
+              <td v-if="user.premium">👑 {{ user.name }}</td>
+              <td v-else-if="!user.premium">{{ user.name }}</td>
               <td>{{ user.email }}</td>
               <td>{{ user.motherTongue }}</td>
               <td>{{ user.desiredLanguage }}</td>
@@ -35,14 +36,6 @@
                   :to="{ name: 'userProfile', params: { id: user._id } }"
                   class="btn btn-primary fa fa-home"
                   >👀
-                </router-link>
-              </td>
-
-              <td>
-                <router-link
-                  :to="{ name: '', params: { id: user._id } }"
-                  class="btn btn-primary fa fa-home"
-                  >🗨
                 </router-link>
               </td>
             </tr>

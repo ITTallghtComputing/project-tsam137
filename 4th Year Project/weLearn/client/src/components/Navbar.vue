@@ -38,7 +38,9 @@
           <router-link to="/room" class="nav-link">Chatroom</router-link>
         </li>
         <li class="nav-item" v-if="isLoggedIn">
-          <router-link to="/premium" class="nav-link">Premium</router-link>
+          <li class="nav-item" v-if="!(user.premium)">
+          <router-link :to="{ name: 'premium', params: { id: user._id, premium: user.premium } }" class="nav-link">Premium</router-link>
+          
         </li>
         <li class="nav-item" v-if="isLoggedIn">
           <a to="/logout" class="nav-link" @click.prevent="logoutUser"
