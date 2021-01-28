@@ -23,7 +23,7 @@
           <router-link to="/list" class="nav-link"><span class="fa fa-users"></span> Show Profiles</router-link>
         </li>
         <li class="nav-item" v-if="user._id == '5fcd335aba244d058e44c002'">
-          <router-link to="/admin" class="nav-link">Admin Profiles</router-link>
+          <router-link to="/admin" class="nav-link"> <span class="	fas fa-tools"></span> Admin Profiles</router-link>
         </li>
         <li class="nav-item" v-if="!isLoggedIn">
           <router-link to="/" class="nav-link">Login</router-link>

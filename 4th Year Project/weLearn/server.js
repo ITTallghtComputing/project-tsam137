@@ -1,10 +1,3 @@
-if (process.env.NODE_ENV !== 'production') {
-	require('dotenv').config()
-  }
-
-const stripeSecretKey = process.env.STRIPE_SECRET_KEY
-const stripePublicKey = process.env.STRIPE_PUBLIC_KEY
-
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
@@ -16,10 +9,8 @@ const profileListRoutes = require('./routes/api/profileList')
 const path = require('path')
 const passport = require('passport');
 const http = require("http").Server(app);
-// const io = require("socket.io")(http);
 const ChatModel = require('./models/ChatModel')
 const fs = require('fs')
-const stripe = require('stripe')(stripeSecretKey)
 
 app.use(cors())
 app.use(morgan('tiny'))
@@ -123,9 +114,6 @@ io.on("connection", socket => {
 	});
 });
 
-
-
-// app.listen(PORT, () => console.log(`App listening at http://localhost:${PORT}`))
 
 http.listen(process.env.PORT || 3000, () => {
 	console.log("Listening on port %s", process.env.PORT || 3000);
