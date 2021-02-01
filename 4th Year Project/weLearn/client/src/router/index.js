@@ -56,6 +56,22 @@ const router = new VueRouter({
     }
   },
   {
+    path: '/contactform',
+    name: 'contactform',
+    component: () => import('../views/ContactForm'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  // {
+  //   path: '/videoroom',
+  //   name: 'videroom',
+  //   component: () => import('../views/VideoRoom.ejs'),
+  //   meta: {
+  //     requiresAuth: true
+  //   }
+  // },
+  {
     path: '/profile',
     name: 'profile',
     component: () => import('../views/Profile.vue'),

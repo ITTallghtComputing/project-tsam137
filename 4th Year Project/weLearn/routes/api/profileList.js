@@ -1,6 +1,7 @@
 //Imports
 const { Router } = require('express')
 const ProfilesList = require('../../models/ProfilesList')
+const Meetings = require('../../models/Meetings')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
@@ -27,6 +28,66 @@ router.get('/', async (req, res) => {
     }
 })
 
+/**
+* @route GET api/meetings/
+* @desc Getting a user
+* @access Public
+*/
+router.get('/meetings', async (req, res) => {
+    try {
+        const Meeting = await Meetings.find()
+        if (!Meeting) throw new Error('No Meetings')
+        const sorted = Meeting.sort((a, b) => {
+            return new Date(a.date).getTime() - new Date(b.date).getTime()
+        })
+        res.status(200).json(sorted)
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+})
+
+/**************************************************************CHECK THIS CODE
+* @route POST api/meetings/
+* @desc Adding a user
+* @access Public
+*/
+router.post('/meetings', (req, res, next) => {
+    const newMeeting = new Meetings({
+
+        name: req.body.name,
+        email: req.body.email,
+        motherTongue: req.body.motherTongue,
+        desiredLanguage: req.body.desiredLanguage,
+        meetingLink: req.body.meetingLink
+    })
+    newMeeting.save(err => {
+        if (err) {
+            return res.status(400).json({
+                title: 'error',
+                msg: 'error.'
+            })
+        }
+        return res.status(200).json({
+            msg: 'Meeting Registered Successfully'
+        })
+    })
+})
+
+/**
+* @route DELETE api/meeting/:id
+* @desc Deleting a meeting by their ID
+* @access Public
+*/
+router.delete('/meeting/:id', async (req, res) => {
+    const { id } = req.params
+    try {
+        const removed = await Meetings.findByIdAndDelete(id)
+        if (!removed) throw Error('Something went wrong ')
+        res.status(200).json(removed)
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+})
 
 
 /**
@@ -57,6 +118,42 @@ router.post('/', (req, res, next) => {
     })
 })
 
+
+/**
+* @route PUT api/meetings/
+* @desc Updating a meeting by ID
+* @access Public
+*/
+router.put('/meetings/:id', async (req, res) => {
+    const { id } = req.params
+
+    try {
+        const response = await Meetings.findByIdAndUpdate(id, req.body)
+        if (!response) throw Error('Something went wrong ')
+        const updated = { ...response._doc, ...req.body }
+        res.status(200).json(updated)
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+})
+
+/**
+* @route GET api/meetings/
+* @desc Getting a single metting by ID
+* @access Public
+*/
+router.get('meetings/:id', async (req, res) => {
+    const { id } = req.params
+
+    try {
+        const response = await Meetings.findByIdAndUpdate(id, req.body)
+        if (!response) throw Error('Something went wrong ')
+        const updated = { ...response._doc, ...req.body }
+        res.status(200).json(updated)
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+})
 
 
 /**

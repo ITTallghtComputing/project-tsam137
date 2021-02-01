@@ -11,6 +11,7 @@ const passport = require('passport');
 const http = require("http").Server(app);
 const ChatModel = require('./models/ChatModel')
 const fs = require('fs')
+const { v4: uuidV4 } = require('uuid')
 
 app.use(cors())
 app.use(morgan('tiny'))
@@ -27,6 +28,32 @@ const io = require("socket.io")(http, {
 	}
   });
   
+
+/**
+Video Chat
+**/
+
+app.set('view engine', 'ejs')
+app.use(express.static('public'))
+
+app.get('/', (req, res) => {
+  res.redirect(`/${uuidV4()}`)
+})
+
+app.get('/:room', (req, res) => {
+  res.render('room', { roomId: req.params.room })
+})
+
+io.on('connection', socket => {
+  socket.on('join-room', (roomId, userId) => {
+    socket.join(roomId)
+    socket.to(roomId).broadcast.emit('user-connected', userId)
+
+    socket.on('disconnect', () => {
+      socket.to(roomId).broadcast.emit('user-disconnected', userId)
+    })
+  })
+})
 
 
  let userss = [];
