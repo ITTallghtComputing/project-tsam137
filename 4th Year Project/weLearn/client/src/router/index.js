@@ -56,9 +56,9 @@ const router = new VueRouter({
     }
   },
   {
-    path: '/contactform',
-    name: 'contactform',
-    component: () => import('../views/ContactForm'),
+    path: '/meetingrequest',
+    name: 'meetingrequest',
+    component: () => import('../views/MeetingRequest'),
     meta: {
       requiresAuth: true
     }

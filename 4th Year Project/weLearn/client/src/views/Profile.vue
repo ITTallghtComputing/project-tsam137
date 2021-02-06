@@ -34,9 +34,6 @@
           Desired Language: {{ user.desiredLanguage }}
         </li>
         <li class="list-group-item">
-          Meeting Platform: {{ user.meetingPlatform }}
-        </li>
-        <li class="list-group-item">
           Premium Account: {{ user.premium }}
         </li>
       </ul>

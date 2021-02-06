@@ -11,8 +11,8 @@
           <label>Language</label>
           <input 
             type="text" 
-            v-model="language"
-            name="language"
+            v-model="motherTongue"
+            name="motherTongue"
             placeholder="What Language are you teaching this person"
           >
           <label>Your Email</label>
@@ -58,47 +58,71 @@
 
 <script>
 import emailjs from 'emailjs-com';
+import axios from "axios";
 
 export default {
-  name: 'ContactUs',
+  name: 'ContactForm',
   data() {
     return {
+      meetings: {},
       name: '',
-      language: '',
+      motherTongue: '',
       email: '',
       toEmail: '',
       date: '',
       time: '',
-      timezone: ''
+      timezone: '',
+      meetinglink: 'https://meet.google.com/xze-juie-xwr'
       
     }
   },
+  async mounted() {
+    const response = await axios.get("api/meetings/");
+    this.meetings = response.data;
+  },
   methods: {
-    sendEmail(e) {
+   sendEmail(e) {
       try {
         emailjs.sendForm('welearn', 'template_zhrwwhb', e.target, 'user_XsK6yvrBzsbxesJ0vxJmQ', {
           name: this.name,
           email: this.email,
-          language: this.language,
+          motherTongue: this.motherTongue,
           toEmail: this.toEmail,
           date: this.date,
           time: this.time,
-          timezone: this.timezone
-        })
-        console.log('it works!!!')
-
-      } catch (error) {
-          console.log({error})
-      }
+          timezone: this.timezone,
+          meetinglink: "https://meet.google.com/xze-juie-xwr"
+        });
+        let meetingsData = {
+        
+          name: this.meetings.name,
+          email: this.meetings.email,
+          motherTongue: this.meetings.motherTongue,
+          toEmail: this.meetings.toEmail,
+          date: this.meetings.date,
+          time: this.meetings.time,
+          timezone: this.meetings.timezone,
+          meetinglink: this.meetings.meetingLink,
+    
+        };
+       axios.post("http://localhost:3000/api/meetings/", meetingsData);
+      // this.meetings.push(response.data);
       // Reset form field
       this.name = ''
       this.email = ''
       this.message = ''
       this.toEmail = ''
-      this.language = ''
+      this.motherTongue = ''
       this.date = ''
       this.time = ''
       this.timezone = ''
+        console.log('it works!!!')
+        
+      } catch (error) {
+          console.log({error})
+          console.log(this.meetingsData)
+      }
+
     },
   }
 }

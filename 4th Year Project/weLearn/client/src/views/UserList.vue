@@ -18,7 +18,6 @@
               <th>Email</th>
               <th>Mother Tongue</th>
               <th>Desired Language</th>
-              <th>Meeting Platform</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -29,7 +28,6 @@
               <td>{{ user.email }}</td>
               <td>{{ user.motherTongue }}</td>
               <td>{{ user.desiredLanguage }}</td>
-              <td>{{ user.meetingPlatform }}</td>
 
               <td>
                 <router-link

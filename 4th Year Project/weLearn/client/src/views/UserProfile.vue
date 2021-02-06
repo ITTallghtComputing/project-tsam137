@@ -19,9 +19,6 @@
           Desired Language: {{ user.desiredLanguage }}
         </li>
         <li class="list-group-item">
-          Meeting Platform: {{ user.meetingPlatform }}
-        </li>
-        <li class="list-group-item">
           Premium Account: {{ user.premium }}
         </li>
       </ul>
@@ -29,9 +26,9 @@
     <br>
     <td>
                 <router-link
-                  :to="{ name: '', params: { id: user._id } }"
+                  :to="{ name: 'meetingrequest', params: { id: user._id } }"
                   class="btn btn-primary"
-                  >🎥
+                  >Request Meeting
                 </router-link>
               </td>
   </div>
