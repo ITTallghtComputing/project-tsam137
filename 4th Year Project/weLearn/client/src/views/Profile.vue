@@ -38,18 +38,36 @@
         </li>
       </ul>
     </div>
+    <br>
+    <td>
+                <router-link
+                  :to="{ name: 'usermeetings', params: { id: user._id } }"
+                  class="btn btn-primary"
+                  >My Meetings
+                </router-link>
+              </td>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 import { mapActions, mapGetters } from "vuex";
 export default {
+  data() {
+    return {
+      meetings: {},
+    }
+  },
   computed: mapGetters(["user"]),
   methods: {
     ...mapActions(["getProfile"]),
   },
   created() {
     this.getProfile();
+  },
+  async mounted() {
+    const response = await axios.get("api/meetings/");
+    this.meetings = response.data;
   },
 };
 </script>

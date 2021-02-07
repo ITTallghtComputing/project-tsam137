@@ -63,6 +63,14 @@ const router = new VueRouter({
       requiresAuth: true
     }
   },
+  {
+    path: '/usermeetings',
+    name: 'usermeetings',
+    component: () => import('../views/UserMeetings'),
+    meta: {
+      requiresAuth: true
+    }
+  },
   // {
   //   path: '/videoroom',
   //   name: 'videroom',
