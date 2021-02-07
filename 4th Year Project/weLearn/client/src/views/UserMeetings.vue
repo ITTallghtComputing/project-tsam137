@@ -7,9 +7,8 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Language</th>
+              <th>Their Email</th>
+              <th>Language your Teaching</th>
               <th>Date</th>
               <th>Time</th>
               <th>Timezone</th>
@@ -19,10 +18,9 @@
           </thead>
           <tbody>
             <tr v-for="meeting in meetings" :key="meeting.email">
-              <td>{{ meeting.name }}</td>
-              <td>{{ meeting.email }}</td>
+              <td>{{ meeting.toEmail }}</td>
               <td>{{ meeting.motherTongue }}</td>
-              <td>{{ meeting.date.substring(1, 10) }}</td>
+              <td>{{ meeting.date.substring(2, 10) }}</td>
               <td>{{ meeting.time }}</td>
               <td>{{ meeting.timezone }}</td>
              <td>
