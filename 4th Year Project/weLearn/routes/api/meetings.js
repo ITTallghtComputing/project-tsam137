@@ -64,7 +64,8 @@ router.post('/', (req, res, next) => {
         date: req.body.date,
         time: req.body.time,
         timezone: req.body.timezone,
-        meetingLink: req.body.meetingLink
+        meetingLink: req.body.meetingLink,
+        userID: req.body.userID
     })
     newMeeting.save(err => {
         if (err) {

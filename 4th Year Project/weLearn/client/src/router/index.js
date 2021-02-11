@@ -71,6 +71,14 @@ const router = new VueRouter({
       requiresAuth: true
     }
   },
+  {
+    path: '/meetingEdit',
+    name: 'meetingEdit',
+    component: () => import('../views/MeetingEdit'),
+    meta: {
+      requiresAuth: true
+    }
+  },
   // {
   //   path: '/videoroom',
   //   name: 'videroom',
