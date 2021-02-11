@@ -26,7 +26,7 @@
     <br>
     <td>
                 <router-link
-                  :to="{ name: 'meetingrequest', params: { id: user._id } }"
+                  :to="{ name: 'meetingrequest', params: { id: user._id, emailIn: user.email } }"
                   class="btn btn-primary"
                   >Request Meeting
                 </router-link>

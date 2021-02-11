@@ -42,6 +42,7 @@
         placeholder="What is your timezone"
       />
       <br />
+      <div v-if="this.dateError" class="alert alert-danger">{{ msg }}</div>
       <br />
       <input type="submit" value="Send" />
     </form>
@@ -49,7 +50,7 @@
 </template>
 
 <script>
-// import emailjs from 'emailjs-com';
+import emailjs from 'emailjs-com';
 import axios from "axios";
 
 export default {
@@ -57,6 +58,7 @@ export default {
   data() {
     return {
       id: 0,
+      emailIn: "",
       user: {},
       meetings: [],
       name: "",
@@ -67,10 +69,14 @@ export default {
       time: "",
       timezone: "",
       meetinglink: "https://meet.google.com/xze-juie-xwr",
+      dateError: false,
+      msg: "Date & Time already booked. Please select different Date and or Time"
     };
   },
   created() {
     this.id = this.$route.params.id;
+    this.email = this.$route.params.emailIn;
+    this.emailIn = this.$route.params.emailIn;
     this.getUser();
   },
   async mounted() {
@@ -78,71 +84,62 @@ export default {
     this.meetings = response.data;
   },
   methods: {
-    sendEmail() {
-      
+    sendEmail(e) {
+      //FIX THIS, SHOULD BE EMAIL NOT USERID
       for (var i = 0; i < this.meetings.length; i++) {
-        if (this.id == this.meetings[i].userID) {
-          console.log("Same ID");
-          var dateSubString = this.meetings[i].date;
-          var dateNew = dateSubString.substring(0, 10);
-          console.log(dateNew);
-          console.log(this.date);
-          if (dateNew == this.date && this.meetings[i].time == this.time) {
-            console.log("Same Date and Time");
-            console.log(this.email + " " + this.time + " " + this.date);
+        if (this.email == this.meetings[i].email || this.emailIn == this.meetings[i].email) {
+          var dateSubString = this.meetings[i].date.substring(0, 10);
+          if (dateSubString == this.date && this.meetings[i].time == this.time) {
+            this.dateError = true;
+          }
+          else{
+            this.dateError = false;
+            
+         try {
+        emailjs.sendForm('welearn', 'template_zhrwwhb', e.target, 'user_XsK6yvrBzsbxesJ0vxJmQ', {
+          name: this.user.name,
+          email: this.user.email,
+          motherTongue: this.user.motherTongue,
+          toEmail: this.toEmail,
+          date: this.date,
+          time: this.time,
+          timezone: this.timezone,
+          meetinglink: "https://meet.google.com/xze-juie-xwr"
+        });
+        let meetingsData = {
+
+          name: this.meetings.name,
+          email: this.meetings.email,
+          motherTongue: this.meetings.motherTongue,
+          toEmail: this.meetings.toEmail,
+          date: this.meetings.date,
+          time: this.meetings.time,
+          timezone: this.meetings.timezone,
+          meetinglink: this.meetings.meetingLink,
+          id: this.meetings.userID,
+
+        };
+       axios.post("http://localhost:3000/api/meetings/", meetingsData);
+      // this.meetings.push(response.data);
+      // Reset form field
+      this.name = ''
+      this.email = ''
+      this.message = ''
+      this.toEmail = ''
+      this.motherTongue = ''
+      this.date = ''
+      this.time = ''
+      this.timezone = ''
+        console.log('it works!!!')
+
+      } catch (error) {
+          console.log({error})
+          console.log(this.meetingsData)
+      }
           }
         }
       }
-      //  for(var i = 0; i< this.meetings[i].length; i++){
-      //   if(this.id == this.meetings[i].userID){
-      //     console.log("hi")
-      // }
-      // else{
-      //   console.log("oh")
-      // }
-      //}
-
-      // try {
-      //   emailjs.sendForm('welearn', 'template_zhrwwhb', e.target, 'user_XsK6yvrBzsbxesJ0vxJmQ', {
-      //     name: this.user.name,
-      //     email: this.user.email,
-      //     motherTongue: this.user.motherTongue,
-      //     toEmail: this.toEmail,
-      //     date: this.date,
-      //     time: this.time,
-      //     timezone: this.timezone,
-      //     meetinglink: "https://meet.google.com/xze-juie-xwr"
-      //   });
-      //   let meetingsData = {
-
-      //     name: this.meetings.name,
-      //     email: this.meetings.email,
-      //     motherTongue: this.meetings.motherTongue,
-      //     toEmail: this.meetings.toEmail,
-      //     date: this.meetings.date,
-      //     time: this.meetings.time,
-      //     timezone: this.meetings.timezone,
-      //     meetinglink: this.meetings.meetingLink,
-      //     id: this.meetings.userID,
-
-      //   };
-      //  axios.post("http://localhost:3000/api/meetings/", meetingsData);
-      // // this.meetings.push(response.data);
-      // // Reset form field
-      // this.name = ''
-      // this.email = ''
-      // this.message = ''
-      // this.toEmail = ''
-      // this.motherTongue = ''
-      // this.date = ''
-      // this.time = ''
-      // this.timezone = ''
-      //   console.log('it works!!!')
-
-      // } catch (error) {
-      //     console.log({error})
-      //     console.log(this.meetingsData)
-      // }
+      
     },
     getUser() {
       axios
@@ -181,6 +178,13 @@ input[type="submit"] {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+.alert {
+  border-radius: 0px;
+}
+.alert-danger {
+  background: red;
+  color: #fff;
 }
 
 input[type="submit"]:hover {
