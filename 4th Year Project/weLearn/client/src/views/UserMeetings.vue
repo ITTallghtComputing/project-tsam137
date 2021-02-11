@@ -20,7 +20,7 @@
             <tr v-for="meeting in meetings" :key="meeting.email">
               <td>{{ meeting.toEmail }}</td>
               <td>{{ meeting.motherTongue }}</td>
-              <td>{{ meeting.date.substring(2, 10) }}</td>
+              <td>{{ meeting.date.substring(0, 10) }}</td>
               <td>{{ meeting.time }}</td>
               <td>{{ meeting.timezone }}</td>
              <td>
