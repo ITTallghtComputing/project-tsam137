@@ -32,17 +32,17 @@
                 </button>
               </td>
               
-              <td>
+              <!-- <td>
                 <router-link
                   :to="{ name: 'meetingEdit', params: { id: meeting._id } }"
                   class="btn btn-primary"
                   >Edit
                 </router-link>
-              </td>
+              </td> -->
 
               <td>
                 <button
-                  @click.prevent="removeMeeting(meeting, meeting.email)"
+                  @click.prevent="removeMeeting(meeting, meeting.userID)"
                   class="btn btn-danger"
                 >
                   Delete
@@ -76,14 +76,16 @@ export default {
         this.link = url;
         window.open(this.link, "_blank");   
     },
-  },
-  async removeMeeting(meetings) {
+    
+    async removeMeeting(meetings) {
       if (confirm("Are you sure you want to delete this meeting " + meetings.name)) {
         await axios.delete("api/meeting/" + meetings._id);
         this.meetings.splice(1);
         this.$router.push("/usermeetings");
       }
     },
+  },
+  
   created() {
     this.getProfile();
   },

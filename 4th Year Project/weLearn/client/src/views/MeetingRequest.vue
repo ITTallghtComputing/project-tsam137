@@ -42,7 +42,9 @@
         placeholder="What is your timezone"
       />
       <br />
-      <div v-if="this.dateError" class="alert alert-danger">{{ msg }}</div>
+      <div v-if="this.dateError" class="alert alert-danger">
+        <p>Date & Time already booked.</p>
+          <p>Please select different Date and or Time</p></div>
       <br />
       <input type="submit" value="Send" />
     </form>
@@ -70,7 +72,6 @@ export default {
       timezone: "",
       meetinglink: "https://meet.google.com/xze-juie-xwr",
       dateError: false,
-      msg: "Date & Time already booked. Please select different Date and or Time"
     };
   },
   created() {
@@ -85,9 +86,10 @@ export default {
   },
   methods: {
     sendEmail(e) {
-      //FIX THIS, SHOULD BE EMAIL NOT USERID
       for (var i = 0; i < this.meetings.length; i++) {
-        if (this.email == this.meetings[i].email || this.emailIn == this.meetings[i].email) {
+        if (this.email == this.meetings[i].email || 
+        this.emailIn == this.meetings[i].email || 
+        this.toEmail == this.meetings[i].toEmail) {
           var dateSubString = this.meetings[i].date.substring(0, 10);
           if (dateSubString == this.date && this.meetings[i].time == this.time) {
             this.dateError = true;
