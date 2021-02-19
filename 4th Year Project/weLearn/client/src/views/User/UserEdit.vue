@@ -53,17 +53,6 @@
           />
         </div>
         <div class="form-group col-md-12">
-          <label for="title"> Meeting Platform </label>
-          <input
-            type="text"
-            id="meetingPlatform"
-            v-model="user.meetingPlatform"
-            name="title"
-            class="form-control"
-            placeholder="Enter Meeting Platform"
-          />
-        </div>
-        <div class="form-group col-md-12">
           <label for="title"> Premium </label>
           <input
             type="text"
@@ -72,6 +61,28 @@
             name="title"
             class="form-control"
             placeholder="Is this customer Premium?"
+          />
+        </div>
+        <div class="form-group col-md-12">
+          <label for="title"> Meeting Count </label>
+          <input
+            type="number"
+            id="meetingCount"
+            v-model.number="user.meetingCount"
+            name="title"
+            class="form-control"
+            placeholder="Number of meetings they have had"
+          />
+        </div>
+        <div class="form-group col-md-12">
+          <label for="title"> Meeting Rating </label>
+          <input
+            type="number"
+            id="meetingRating"
+            v-model.number="user.meetingRating"
+            name="title"
+            class="form-control"
+            placeholder="Their Meeting Rating score"
           />
         </div>
         <div class="form-group col-md-4 pull-right">
@@ -103,6 +114,8 @@ export default {
         desiredLanguage: this.user.desiredLanguage,
         meetingPlatform: this.user.meetingPlatform,
         premium: this.user.premium,
+        meetingCount: this.user.meetingCount,
+        meetingRating: this.user.meetingRating,
       };
       axios.put(`http://localhost:3000/api/profileList/${this.id}`, userData);
       this.$router.push("/admin");

@@ -15,34 +15,37 @@ const router = new VueRouter({
   {
     path: '/register',
     name: 'register',
-    component: () => import('../views/RegisterUser')
+    component: () => import('../views/User/RegisterUser')
   },
 
   {
     path: '/',
     name: 'login',
-    component: () => import('../views/Login')
+    component: () => import('../views/User/Login')
   },
   {
     path: '/list',
     name: 'list',
-    component: () => import('../views/UserList')
+    component: () => import('../views/User/UserList'),
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/admin',
     name: 'admin',
-    component: () => import('../views/Admin')
+    component: () => import('../views/User/Admin')
   },
   {
     
     path: '/edit/:id',
     name: 'edit',
-    component: () => import('../views/UserEdit')
+    component: () => import('../views/User/UserEdit')
   },
   {
     path: '/room',
     name: 'room',
-    component: () => import('../views/Room.vue'),
+    component: () => import('../views/Chat/Room.vue'),
     meta: {
       requiresAuth: true
     }
@@ -50,7 +53,7 @@ const router = new VueRouter({
   {
     path: '/chatroom',
     name: 'chatroom',
-    component: () => import('../views/Chatroom'),
+    component: () => import('../views/Chat/Chatroom'),
     meta: {
       requiresAuth: true
     }
@@ -58,7 +61,7 @@ const router = new VueRouter({
   {
     path: '/meetingrequest',
     name: 'meetingrequest',
-    component: () => import('../views/MeetingRequest'),
+    component: () => import('../views/Meeting/MeetingRequest'),
     meta: {
       requiresAuth: true
     }
@@ -66,7 +69,7 @@ const router = new VueRouter({
   {
     path: '/usermeetings',
     name: 'usermeetings',
-    component: () => import('../views/UserMeetings'),
+    component: () => import('../views/Meeting/UserMeetings'),
     meta: {
       requiresAuth: true
     }
@@ -74,23 +77,23 @@ const router = new VueRouter({
   {
     path: '/meetingEdit',
     name: 'meetingEdit',
-    component: () => import('../views/MeetingEdit'),
+    component: () => import('../views/Meeting/MeetingEdit'),
     meta: {
       requiresAuth: true
     }
   },
-  // {
-  //   path: '/videoroom',
-  //   name: 'videroom',
-  //   component: () => import('../views/VideoRoom.ejs'),
-  //   meta: {
-  //     requiresAuth: true
-  //   }
-  // },
+  {
+    path: '/meetingRating',
+    name: 'meetingRating',
+    component: () => import('../views/Meeting/MeetingRating'),
+    meta: {
+      requiresAuth: true
+    }
+  },
   {
     path: '/profile',
     name: 'profile',
-    component: () => import('../views/Profile.vue'),
+    component: () => import('../views/User/Profile.vue'),
     meta: {
       requiresAuth: true
     }
@@ -98,7 +101,7 @@ const router = new VueRouter({
   {
     path: '/premium/:id',
     name: 'premium',
-    component: () => import('../views/Premium.vue'),
+    component: () => import('../views/User/Premium.vue'),
     meta: {
       requiresAuth: true
     }
@@ -106,10 +109,10 @@ const router = new VueRouter({
   {
     path: '/userProfile',
     name: 'userProfile',
-    component: () => import('../views/UserProfile.vue'),
-    // meta: {
-    //   requiresAuth: true
-    // }
+    component: () => import('../views/User/UserProfile.vue'),
+    meta: {
+      requiresAuth: true
+    }
   }
 ]
 })
@@ -118,7 +121,7 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!store.getters.isLoggedIn) {
       // Redirect to the Login Page
-      next('/login');
+      next('/');
     } else {
       next();
     }

@@ -33,7 +33,15 @@ const ProfilesListSchema = new Schema({
     },
     premium: {
         type: Boolean,
-    }
+    },
+    meetingCount: {
+        type: Number,
+        default: 0,
+    },
+    meetingRating: {
+        type: Number,
+        default: 0,
+    },
 })
 
 const ProfilesList = model('ProfilesList', ProfilesListSchema)

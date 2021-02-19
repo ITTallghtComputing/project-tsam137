@@ -18,8 +18,9 @@
               <th>Email</th>
               <th>Mother Tongue</th>
               <th>Desired Language</th>
-              <th>Meeting Platform</th>
               <th>Premium</th>
+              <th>Meetings Completed</th>
+              <th>Meetings Rating</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -29,7 +30,8 @@
               <td>{{ user.email }}</td>
               <td>{{ user.motherTongue }}</td>
               <td>{{ user.desiredLanguage }}</td>
-              <td>{{ user.meetingPlatform }}</td>
+              <td>{{ user.meetingCount }}</td>
+              <td>{{ user.meetingRating }}</td>
               <td>{{ user.premium }}</td>
 
               <td>
@@ -69,7 +71,10 @@ export default {
       desiredLanguage: "",
       meetingPlatform: "",
       premium: "",
+      meetingCount: "",
+      meetingRating: "",
       search: "",
+
     };
   },
   async mounted() {

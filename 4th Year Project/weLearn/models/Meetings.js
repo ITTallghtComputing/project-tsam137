@@ -37,6 +37,10 @@ const MeetingsSchema = new Schema({
         type: String,
         required: true,
     },
+    toUserID: {
+        type: String,
+        required: true,
+    },
     dateNow: {
         type: Date,
         default: Date.now,

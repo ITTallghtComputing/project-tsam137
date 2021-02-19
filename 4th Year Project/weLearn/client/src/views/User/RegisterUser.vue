@@ -55,15 +55,6 @@
             />
           </div>
 
-          <div class="form-group">
-            <label>Meeting Platform</label>
-            <input
-              type="text"
-              class="form-control"
-              v-model="users.meetingPlatform"
-              required
-            />
-          </div>
 
           <div class="form-group">
             <button class="btn btn-primary btn-block">Register</button>
@@ -87,7 +78,6 @@ export default {
       password: "",
       motherTongue: "",
       desiredLanguage: "",
-      meetingPlatform: "",
       error: "",
       editedName: "",
       editedEmail: "",
@@ -106,7 +96,6 @@ export default {
         password: this.users.password,
         motherTongue: this.users.motherTongue,
         desiredLanguage: this.users.desiredLanguage,
-        meetingPlatform: this.users.meetingPlatform,
       });
       this.users.push(response.data);
       this.name = "";
@@ -114,7 +103,6 @@ export default {
       this.password = "";
       (this.users.motherTongue = ""),
         (this.users.desiredLanguage = ""),
-        (this.users.meetingPlatform = "");
       this.$router.push("/");
     },
   },

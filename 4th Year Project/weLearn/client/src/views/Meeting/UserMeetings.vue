@@ -13,12 +13,13 @@
               <th>Time</th>
               <th>Timezone</th>
               <th>Meeting Link</th>
-              <th>Actions</th>
+              <th>Attended?</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="meeting in meetings" :key="meeting.email">
-              <td>{{ meeting.toEmail }}</td>
+              <td v-if="user.email == meeting.email">{{ meeting.toEmail }}</td>
+              <td v-else-if="user.email == meeting.toEmail">{{ meeting.email }}</td>
               <td>{{ meeting.motherTongue }}</td>
               <td>{{ meeting.date.substring(0, 10) }}</td>
               <td>{{ meeting.time }}</td>
@@ -41,11 +42,20 @@
               </td> -->
 
               <td>
-                <button
+                <button style="border-radiue=5px"
                   @click.prevent="removeMeeting(meeting, meeting.userID)"
+                  class="btn btn-success"
+                >
+                  Yes
+                </button>
+              
+              </td>
+              <td>
+                <button
+                  @click.prevent="deleteMeeting(meeting, meeting.userID)"
                   class="btn btn-danger"
                 >
-                  Delete
+                  No
                 </button>
               </td>
             </tr>
@@ -60,13 +70,19 @@
 </template>
 
 <script>
+//What if the meeting didnt occur but they want to delete it.
+
+
+//19/02/2021 - Both users involved need to have their messageCount incremented. FIX
 import axios from "axios";
 import { mapActions, mapGetters } from "vuex";
 export default {
   data() {
     return {
+      id: 0,
       meetings: {},
-      link: "a"
+      link: "a",
+      count: 0
     }
   },
   computed: mapGetters(["user"]),
@@ -78,16 +94,32 @@ export default {
     },
     
     async removeMeeting(meetings) {
-      if (confirm("Are you sure you want to delete this meeting " + meetings.name)) {
+      if (confirm("Has this meeting already occured " + this.user.name + "?")) {
+        this.count+=1;
+        let userData = {
+        meetingCount: this.count,  
+      };
+      
+      axios.put(`http://localhost:3000/api/profileList/${this.id}`, userData);
+        // await axios.delete("api/meeting/" + meetings._id);
+        // this.meetings.splice(1);
+        this.$router.push({ name: "meetingRating", params: { userID: meetings.userID, toUserID: meetings.toUserID,
+         meetingsCount: meetings.count } });
+      }
+    },
+      async deleteMeeting(meetings) {
+      if (confirm("Do you wish to delete this meeting " + this.user.name + "?")) {
         await axios.delete("api/meeting/" + meetings._id);
         this.meetings.splice(1);
         this.$router.push("/usermeetings");
       }
     },
-  },
-  
+  },  
   created() {
+    this.id = this.$route.params.id;
+    this.count = this.$route.params.meetingCount;
     this.getProfile();
+    console.log(this.user.email)
   },
   async mounted() {
     const response = await axios.get("api/meetings/");

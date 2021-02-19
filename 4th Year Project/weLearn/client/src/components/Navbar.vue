@@ -23,7 +23,7 @@
           <router-link to="/list" class="nav-link"><span class="fa fa-users"></span> Show Profiles</router-link>
         </li>
         <li class="nav-item" v-if="user._id == '5fcd335aba244d058e44c002'">
-          <router-link to="/admin" class="nav-link"> <span class="	fas fa-tools"></span> Admin Profiles</router-link>
+          <router-link to="/admin" class="nav-link"> <span class="fa fa-wrench"></span> Admin Profiles</router-link>
         </li>
         <li class="nav-item" v-if="!isLoggedIn">
           <router-link to="/" class="nav-link">Login</router-link>
@@ -35,10 +35,10 @@
           <router-link to="/profile" class="nav-link"> <span class="	fa fa-user-circle"></span> My Profile</router-link>
         </li>
         <li class="nav-item" v-if="isLoggedIn">
-          <router-link to="/room" class="nav-link"> <span class="	far fa-comments"></span> Chatroom</router-link>
+          <router-link to="/room" class="nav-link"> <span class="	fa fa-comments"></span> Chatroom</router-link>
         </li>
-        <li class="nav-item" v-if="isLoggedIn">
-          <li class="nav-item" v-if="!(user.premium)">
+        <li class="nav-item" v-if="isLoggedIn && !(user.premium)">
+          <!-- <li class="nav-item" v-if=""> -->
           <router-link :to="{ name: 'premium', params: { id: user._id, premium: user.premium } }" class="nav-link">👑 Premium</router-link>
           
         </li>

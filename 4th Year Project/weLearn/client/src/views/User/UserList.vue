@@ -6,6 +6,12 @@
       v-model="search"
       placeholder="Search by Mother Tongue"
     />
+     <!-- <select name="searchOption" id="search">
+    <option value="name">Name</option>
+    <option value="meetingCount">Meeting Count</option>
+    <option value="desiredLanguage">Desired Language</option>
+    <option value="email">Email</option>
+  </select> -->
     <br />
     <hr />
     <br />
@@ -18,6 +24,8 @@
               <th>Email</th>
               <th>Mother Tongue</th>
               <th>Desired Language</th>
+              <th>Meetings Completed</th>
+              <th>Meeting Rating</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -28,11 +36,13 @@
               <td>{{ user.email }}</td>
               <td>{{ user.motherTongue }}</td>
               <td>{{ user.desiredLanguage }}</td>
+              <td>{{ user.meetingCount }}</td>
+              <td>{{ user.meetingRating }}</td>
 
               <td>
                 <router-link
                   :to="{ name: 'userProfile', params: { id: user._id } }"
-                  class="btn btn-primary "
+                  class="btn btn-primary"
                   >👀
                 </router-link>
               </td>
@@ -57,16 +67,30 @@ export default {
       desiredLanguage: "",
       meetingPlatform: "",
       search: "",
+      searchOption: ""
     };
   },
   async mounted() {
+    
     const response = await axios.get("api/profileList/");
     this.users = response.data;
+
   },
   computed: {
+    
+
     filteredUsers: function () {
       return this.users.filter((user) => {
-        return user.motherTongue.toLowerCase().match(this.search.toLowerCase());
+        if(this.searchOption == ""){
+          return user.motherTongue.toLowerCase().match(this.search.toLowerCase());
+        }
+        else if(this.searchOption == "meetingCount"){
+          return user.meetingCount.toLowerCase().match(this.search.toLowerCase());
+        }
+        else{
+          return user.motherTongue.toLowerCase().match(this.search.toLowerCase());
+        }
+        
       });
     },
   },

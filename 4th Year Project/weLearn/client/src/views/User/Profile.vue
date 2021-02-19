@@ -34,14 +34,18 @@
           Desired Language: {{ user.desiredLanguage }}
         </li>
         <li class="list-group-item">
-          Premium Account: {{ user.premium }}
+          Meeting Count: {{ user.meetingCount }}
+        </li>
+        <li class="list-group-item">
+          Meeting Rating: {{ user.meetingRating }}
         </li>
       </ul>
     </div>
     <br>
     <td>
+      <!-- userID: meetings.userID, toUserID: meetings.toUserID -->
                 <router-link
-                  :to="{ name: 'usermeetings', params: { id: user._id } }"
+                  :to="{ name: 'usermeetings', params: { id: user._id, meetingCount: user.meetingCount } }" 
                   class="btn btn-primary"
                   >My Meetings
                 </router-link>
