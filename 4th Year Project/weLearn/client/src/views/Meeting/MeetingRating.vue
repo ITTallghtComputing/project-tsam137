@@ -85,7 +85,7 @@ export default {
       id: 0,
       toUserID: 0,
       userID: 0,
-      user: {},
+      firstUser: {},
       toUser: {},
       attitude: 0,
       knowledge: 0,
@@ -100,9 +100,9 @@ export default {
     this.toUserID = this.$route.params.toUserID;
     this.userID = this.$route.params.userID;
     this.count = this.$route.params.meetingCount;
-    console.log(this.user.email);
     this.getUsers();
     this.getProfile();
+    
   },
   methods: {
     ...mapActions(["getProfile"]),
@@ -115,16 +115,23 @@ export default {
         this.overallRating *= 100;
         this.overallRating /= 30;
         this.overallRating /= this.count;
+        this.overallRating
       } else {
         this.overallRating =
           this.knowledge + this.attitude + this.teachingSkill;
         this.overallRating *= 100;
         this.overallRating /= 30;
+        this.overallRating
       }
-
       let toUserData = {
         meetingRating: this.overallRating,
       };
+      // if (this.user._id == this.userID) {
+      // console.log(this.toUserID)
+      //   }
+      //  else if (this.user._id == this.toUserID) {
+      // console.log(this.userID)
+      //   }
       if (this.user._id == this.userID) {
         axios.put(
           `http://localhost:3000/api/profileList/${this.toUserID}`,
@@ -132,7 +139,7 @@ export default {
         );
         this.$router.push("/usermeetings");
       }
-      else {
+      else if((this.user._id == this.toUserID)){
         axios.put(
           `http://localhost:3000/api/profileList/${this.userID}`,
           toUserData
@@ -143,7 +150,7 @@ export default {
     getUsers() {
       axios
         .get(`http://localhost:3000/api/profileList/${this.userID}`)
-        .then((data) => (this.user = data.data));
+        .then((data) => (this.firstUser = data.data));
       axios
         .get(`http://localhost:3000/api/profileList/${this.toUserID}`)
         .then((data) => (this.toUser = data.data));

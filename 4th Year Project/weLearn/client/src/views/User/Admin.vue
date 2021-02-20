@@ -30,9 +30,10 @@
               <td>{{ user.email }}</td>
               <td>{{ user.motherTongue }}</td>
               <td>{{ user.desiredLanguage }}</td>
-              <td>{{ user.meetingCount }}</td>
-              <td>{{ user.meetingRating }}</td>
               <td>{{ user.premium }}</td>
+              <td>{{ user.meetingCount }}</td>
+              <td>{{ user.meetingRating.toFixed(0) }}/100</td>
+              
 
               <td>
                 <router-link

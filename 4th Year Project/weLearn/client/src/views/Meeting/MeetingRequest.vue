@@ -118,7 +118,8 @@ export default {
           time: this.meetings.time,
           timezone: this.meetings.timezone,
           meetinglink: this.meetings.meetingLink,
-          id: this.meetings.userID,
+          userID: this.meetings.userID,
+          toUserID: this.meetings.toUserID,
 
         };
        axios.post("http://localhost:3000/api/meetings/", meetingsData);

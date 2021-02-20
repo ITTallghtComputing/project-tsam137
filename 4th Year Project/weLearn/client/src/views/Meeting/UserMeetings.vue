@@ -2,9 +2,10 @@
   <div>
       <h2>Meetings</h2>
       <br>
+      <br>
       <div class="row">
       <div class="col-md-12">
-        <table class="table table-striped">
+        <table  class="table table-striped">
           <thead>
             <tr>
               <th>Their Email</th>
@@ -17,14 +18,29 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="meeting in meetings" :key="meeting.email">
-              <td v-if="user.email == meeting.email">{{ meeting.toEmail }}</td>
-              <td v-else-if="user.email == meeting.toEmail">{{ meeting.email }}</td>
-              <td>{{ meeting.motherTongue }}</td>
-              <td>{{ meeting.date.substring(0, 10) }}</td>
-              <td>{{ meeting.time }}</td>
-              <td>{{ meeting.timezone }}</td>
-             <td>
+            <tr v-for="meeting in meetings" :key="meeting.userID">
+              <td v-if="(user._id == meeting.userID || 
+              user._id == meeting.toUserID) && 
+              user.email == meeting.email">{{ meeting.toEmail }}</td>
+
+              <td v-else-if="(user._id == meeting.userID || 
+              user._id == meeting.toUserID) &&
+               user.email == meeting.toEmail">{{ meeting.email }}</td>
+               
+              <td v-if="user._id == meeting.userID || 
+              user._id == meeting.toUserID">{{ meeting.motherTongue }}</td>
+
+              <td v-if="user._id == meeting.userID || 
+              user._id == meeting.toUserID">{{ meeting.date.substring(0, 10) }}</td>
+
+              <td v-if="user._id == meeting.userID || 
+              user._id == meeting.toUserID">{{ meeting.time }}</td>
+
+              <td v-if="user._id == meeting.userID || 
+              user._id == meeting.toUserID">{{ meeting.timezone }}</td>
+
+             <td v-if="user._id == meeting.userID || 
+              user._id == meeting.toUserID">
                 <button
                   @click.prevent="enterMeeting(meeting.meetingLink)"
                   class="btn btn-primary"
@@ -40,8 +56,9 @@
                   >Edit
                 </router-link>
               </td> -->
-
-              <td>
+              
+              <td v-if="user._id == meeting.userID || 
+              user._id == meeting.toUserID">
                 <button style="border-radiue=5px"
                   @click.prevent="removeMeeting(meeting, meeting.userID)"
                   class="btn btn-success"
@@ -50,7 +67,8 @@
                 </button>
               
               </td>
-              <td>
+              <td v-if="user._id == meeting.userID || 
+              user._id == meeting.toUserID">
                 <button
                   @click.prevent="deleteMeeting(meeting, meeting.userID)"
                   class="btn btn-danger"
@@ -58,6 +76,9 @@
                   No
                 </button>
               </td>
+              <!-- <p v-if="user._id != meeting.userID && user._id != meeting.toUserID">
+             You have no meetings {{user.name}}.
+             </p> -->
             </tr>
           </tbody>
         </table>
@@ -86,6 +107,11 @@ export default {
     }
   },
   computed: mapGetters(["user"]),
+  created() {
+    this.id = this.$route.params.id;
+    this.count = this.$route.params.meetingCount;
+    this.getProfile();
+  },
   methods: {
     ...mapActions(["getProfile"]),
     enterMeeting(url){
@@ -95,6 +121,7 @@ export default {
     
     async removeMeeting(meetings) {
       if (confirm("Has this meeting already occured " + this.user.name + "?")) {
+
         this.count+=1;
         let userData = {
         meetingCount: this.count,  
@@ -115,12 +142,7 @@ export default {
       }
     },
   },  
-  created() {
-    this.id = this.$route.params.id;
-    this.count = this.$route.params.meetingCount;
-    this.getProfile();
-    console.log(this.user.email)
-  },
+  
   async mounted() {
     const response = await axios.get("api/meetings/");
     this.meetings = response.data;

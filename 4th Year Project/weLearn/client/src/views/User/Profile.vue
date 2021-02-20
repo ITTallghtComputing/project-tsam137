@@ -37,7 +37,7 @@
           Meeting Count: {{ user.meetingCount }}
         </li>
         <li class="list-group-item">
-          Meeting Rating: {{ user.meetingRating }}
+          Meeting Rating: {{ user.meetingRating.toFixed(0) }}/100
         </li>
       </ul>
     </div>
@@ -45,7 +45,7 @@
     <td>
       <!-- userID: meetings.userID, toUserID: meetings.toUserID -->
                 <router-link
-                  :to="{ name: 'usermeetings', params: { id: user._id, meetingCount: user.meetingCount } }" 
+                  :to="{ name: 'usermeetings', params: { id: user._id, meetingCount: user.meetingCount, } }" 
                   class="btn btn-primary"
                   >My Meetings
                 </router-link>

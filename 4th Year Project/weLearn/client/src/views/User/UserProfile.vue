@@ -21,6 +21,12 @@
         <li class="list-group-item">
           Premium Account: {{ user.premium }}
         </li>
+        <li class="list-group-item">
+          Meeting Count: {{ user.meetingCount }}
+        </li>
+        <li class="list-group-item">
+          Meeting Rating: {{ user.meetingRating.toFixed(0) }}/100
+        </li>
       </ul>
     </div>
     <br>
@@ -46,18 +52,8 @@ export default {
     this.id = this.$route.params.id;
     this.getUser();
   },
+  
   methods: {
-    editUser() {
-      let userData = {
-        name: this.user.name,
-        email: this.user.email,
-        motherTongue: this.user.motherTongue,
-        desiredLanguage: this.user.desiredLanguage,
-        meetingPlatform: this.user.meetingPlatform,
-      };
-      axios.put(`http://localhost:3000/api/profileList/${this.id}`, userData);
-      this.$router.push("/admin");
-    },
     getUser() {
       axios
         .get(`http://localhost:3000/api/profileList/${this.id}`)
