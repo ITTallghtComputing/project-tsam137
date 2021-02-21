@@ -2,16 +2,11 @@
   <div class="container">
     <form @submit.prevent="sendEmail">
       <label>Name</label>
-      <input
-        type="text"
-        v-model="user.name"
-        name="name"
-        placeholder="Your Name"
-      />
+      <input type="text" v-model="name" name="name" placeholder="Your Name" />
       <label>Language</label>
       <input
         type="text"
-        v-model="user.motherTongue"
+        v-model="motherTongue"
         name="motherTongue"
         placeholder="What Language are you teaching this person"
       />
@@ -44,7 +39,8 @@
       <br />
       <div v-if="this.dateError" class="alert alert-danger">
         <p>Date & Time already booked.</p>
-          <p>Please select different Date and or Time</p></div>
+        <p>Please select different Date and or Time</p>
+      </div>
       <br />
       <input type="submit" value="Send" />
     </form>
@@ -52,7 +48,7 @@
 </template>
 
 <script>
-import emailjs from 'emailjs-com';
+// import emailjs from 'emailjs-com';
 import axios from "axios";
 
 export default {
@@ -62,7 +58,9 @@ export default {
       id: 0,
       emailIn: "",
       user: {},
+      users: [],
       meetings: [],
+      meet: [],
       name: "",
       motherTongue: "",
       email: "",
@@ -76,78 +74,100 @@ export default {
   },
   created() {
     this.id = this.$route.params.id;
-    this.email = this.$route.params.emailIn;
-    this.emailIn = this.$route.params.emailIn;
+    this.name = this.$route.params.thisName;
+    this.email = this.$route.params.thisEmail;
+    this.toEmail = this.$route.params.emailIn;
+    console.log(this.email);
     this.getUser();
   },
   async mounted() {
     const response = await axios.get("api/meetings/");
     this.meetings = response.data;
+    this.meet = response.data;
+    const responseUser = await axios.get("api/profileList/");
+    this.users = responseUser.data;
   },
   methods: {
-    sendEmail(e) {
-      for (var i = 0; i < this.meetings.length; i++) {
-        if (this.email == this.meetings[i].email || 
-        this.emailIn == this.meetings[i].email || 
-        this.toEmail == this.meetings[i].toEmail) {
+    sendEmail() {
+      for (var i = 0; i < this.users.length; i++) {
+        if (
+          this.toEmail == this.meetings[i].email ||
+          this.users[i].email == this.meetings[i].email ||
+          this.users[i].email == this.meetings[i].toEmail
+        ) {
           var dateSubString = this.meetings[i].date.substring(0, 10);
-          if (dateSubString == this.date && this.meetings[i].time == this.time) {
+          if (
+            dateSubString == this.date &&
+            this.meetings[i].time == this.time
+          ) {
             this.dateError = true;
-          }
-          else{
+          } else {
             this.dateError = false;
-            
-         try {
-        emailjs.sendForm('welearn', 'template_zhrwwhb', e.target, 'user_XsK6yvrBzsbxesJ0vxJmQ', {
-          name: this.user.name,
-          email: this.user.email,
-          motherTongue: this.user.motherTongue,
-          toEmail: this.toEmail,
-          date: this.date,
-          time: this.time,
-          timezone: this.timezone,
-          meetinglink: "https://meet.google.com/xze-juie-xwr"
-        });
-        let meetingsData = {
 
-          name: this.meetings.name,
-          email: this.meetings.email,
-          motherTongue: this.meetings.motherTongue,
-          toEmail: this.meetings.toEmail,
-          date: this.meetings.date,
-          time: this.meetings.time,
-          timezone: this.meetings.timezone,
-          meetinglink: this.meetings.meetingLink,
-          userID: this.meetings.userID,
-          toUserID: this.meetings.toUserID,
+            try {
+              // emailjs.sendForm('welearn', 'template_zhrwwhb', e.target, 'user_XsK6yvrBzsbxesJ0vxJmQ', {
+              //   name: this.user.name,
+              //   email: this.user.email,
+              //   motherTongue: this.user.motherTongue,
+              //   toEmail: this.toEmail,
+              //   date: this.date,
+              //   time: this.time,
+              //   timezone: this.timezone,
+              //   meetinglink: "https://meet.google.com/xze-juie-xwr"
+              // });
+              for (var j = 0; j < this.users.length; j++) {
+                if (this.users[j].email == this.toEmail) {
+                  this.toUserID = this.users[j]._id;
+                }
+                if (this.users[j].email == this.email) {
+                  this.userID = this.users[j]._id;
+                }
+              }
+              this.pushMeeting()
 
-        };
-       axios.post("http://localhost:3000/api/meetings/", meetingsData);
-      // this.meetings.push(response.data);
-      // Reset form field
-      this.name = ''
-      this.email = ''
-      this.message = ''
-      this.toEmail = ''
-      this.motherTongue = ''
-      this.date = ''
-      this.time = ''
-      this.timezone = ''
-        console.log('it works!!!')
-
-      } catch (error) {
-          console.log({error})
-          console.log(this.meetingsData)
-      }
+              console.log("it works!!!");
+            } catch (error) {
+              console.log({ error });
+              console.log(this.meetingsData);
+            }
           }
         }
       }
-      
     },
     getUser() {
       axios
         .get(`http://localhost:3000/api/profileList/${this.id}`)
         .then((data) => (this.user = data.data));
+
+    },
+    async pushMeeting() {
+      const response = await axios.post("api/meetings/", {
+        name: this.name,
+        email: this.email,
+        motherTongue: this.motherTongue,
+        toEmail: this.toEmail,
+        date: this.date,
+        time: this.time,
+        timezone: this.timezone,
+        meetinglink: this.meetingLink,
+        userID: this.id,
+        toUserID: this.toUserID,
+      });
+      this.meet.push(response.data);
+      console.log(this.email);
+      console.log(this.toEmail);
+      console.log(this.id);
+      console.log(this.time);
+      // this.meetings.push(response.data);
+      // Reset form field
+      this.name = "";
+      this.email = "";
+      this.message = "";
+      this.toEmail = "";
+      this.motherTongue = "";
+      this.date = "";
+      this.time = "";
+      this.timezone = "";
     },
   },
 };
