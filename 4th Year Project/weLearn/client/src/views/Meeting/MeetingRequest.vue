@@ -48,7 +48,7 @@
 </template>
 
 <script>
-// import emailjs from 'emailjs-com';
+import emailjs from 'emailjs-com';
 import axios from "axios";
 
 export default {
@@ -88,7 +88,7 @@ export default {
     this.users = responseUser.data;
   },
   methods: {
-    sendEmail() {
+    sendEmail(e) {
       for (var i = 0; i < this.users.length; i++) {
         if (
           this.toEmail == this.meetings[i].email ||
@@ -105,16 +105,16 @@ export default {
             this.dateError = false;
 
             try {
-              // emailjs.sendForm('welearn', 'template_zhrwwhb', e.target, 'user_XsK6yvrBzsbxesJ0vxJmQ', {
-              //   name: this.user.name,
-              //   email: this.user.email,
-              //   motherTongue: this.user.motherTongue,
-              //   toEmail: this.toEmail,
-              //   date: this.date,
-              //   time: this.time,
-              //   timezone: this.timezone,
-              //   meetinglink: "https://meet.google.com/xze-juie-xwr"
-              // });
+              emailjs.sendForm('welearn', 'template_zhrwwhb', e.target, 'user_XsK6yvrBzsbxesJ0vxJmQ', {
+                name: this.user.name,
+                email: this.user.email,
+                motherTongue: this.user.motherTongue,
+                toEmail: this.toEmail,
+                date: this.date,
+                time: this.time,
+                timezone: this.timezone,
+                meetinglink: "https://meet.google.com/xze-juie-xwr"
+              });
               for (var j = 0; j < this.users.length; j++) {
                 if (this.users[j].email == this.toEmail) {
                   this.toUserID = this.users[j]._id;
