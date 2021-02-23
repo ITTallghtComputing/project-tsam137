@@ -27,10 +27,6 @@ const ProfilesListSchema = new Schema({
         type: String,
         required: true,
     },
-    meetingPlatform: {
-        type: String,
-        required: true,
-    },
     premium: {
         type: Boolean,
     },

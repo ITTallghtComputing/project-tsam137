@@ -1,7 +1,7 @@
 <template>
 	<div class="chat-window">
 		<div class="messages">
-			<div class="message" v-for="message in messages" v-bind:key="message._id">
+			<div class="message" v-for="message in messages " v-bind:key="message._id">
 				<div class="username">{{message.username}}:</div>
 				<div class="message-text">{{message.msg}}</div>
 			</div>
@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import { mapActions, mapGetters } from "vuex";
 export default {
 	name: 'ChatroomApp',
@@ -38,6 +39,11 @@ export default {
     },
       created() {
     this.getProfile();
+	
+  },
+  async mounted() {
+    const response = await axios.get("api/chats/");
+    this.chats = response.data;
   },
 }
 </script>

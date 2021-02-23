@@ -1,7 +1,6 @@
 //Imports
 const { Router } = require('express')
-const ProfilesList = require('../../models/ProfilesList')
-const Meetings = require('../../models/Meetings')
+const ChatModel = require('../../models/ChatModel')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
@@ -22,9 +21,9 @@ const bodyParser = require('body-parser');
 */
 router.get('/', async (req, res) => {
     try {
-        const User = await ProfilesList.find()
-        if (!User) throw new Error('No profileList')
-        const sorted = User.sort((a, b) => {
+        const Chat = await ChatModel.find()
+        if (!Chat) throw new Error('No Chats')
+        const sorted = Chat.sort((a, b) => {
             return new Date(a.date).getTime() - new Date(b.date).getTime()
         })
         res.status(200).json(sorted)
@@ -45,7 +44,8 @@ router.post('/', (req, res, next) => {
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 10),
         motherTongue: req.body.motherTongue,
-        desiredLanguage: req.body.desiredLanguage
+        desiredLanguage: req.body.desiredLanguage,
+        meetingPlatform: req.body.meetingPlatform
     })
     newUser.save(err => {
         if (err) {

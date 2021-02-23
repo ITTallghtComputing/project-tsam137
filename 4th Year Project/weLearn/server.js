@@ -97,6 +97,8 @@ app.use('/api/profileList', users);
 const meetings = require('./routes/api/meetings');
 app.use('/api/meetings', meetings);
 
+const chats = require('./routes/api/chats');
+app.use('/api/chats', chats);
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/dist'))

@@ -7,6 +7,7 @@
       <input
         type="text"
         v-model="motherTongue"
+        required
         name="motherTongue"
         placeholder="What Language are you teaching this person"
       />
@@ -14,6 +15,7 @@
       <input
         type="email"
         v-model="email"
+        required
         name="email"
         placeholder="Your Email"
       />
@@ -21,18 +23,20 @@
       <input
         type="email"
         v-model="toEmail"
+        required
         name="toEmail"
         placeholder="Their Email"
       />
       <label>Date/Time</label>
-      <input type="date" v-model="date" name="date" />
-      <input type="time" v-model="time" name="time" />
+      <input type="date" v-model="date" name="date" required />
+      <input type="time" v-model="time" name="time" required />
       <br />
       <br />
       <label>Timezone</label>
       <input
         type="text"
         v-model="timezone"
+        required
         name="timezone"
         placeholder="What is your timezone"
       />
@@ -50,9 +54,10 @@
 <script>
 import emailjs from 'emailjs-com';
 import axios from "axios";
+// import qs from 'qs'
 
 export default {
-  name: "ContactForm",
+  name: "meetingrequest",
   data() {
     return {
       id: 0,
@@ -77,13 +82,12 @@ export default {
     this.name = this.$route.params.thisName;
     this.email = this.$route.params.thisEmail;
     this.toEmail = this.$route.params.emailIn;
-    console.log(this.email);
+    this.meetingLink ="https://meet.google.com/xze-juie-xwr"
     this.getUser();
   },
   async mounted() {
     const response = await axios.get("api/meetings/");
     this.meetings = response.data;
-    this.meet = response.data;
     const responseUser = await axios.get("api/profileList/");
     this.users = responseUser.data;
   },
@@ -140,34 +144,57 @@ export default {
         .then((data) => (this.user = data.data));
 
     },
-    async pushMeeting() {
+    
+     async pushMeeting() {
+  //      const headers = { 
+  //   "Authorization": "Bearer my-token",
+  //   "My-Custom-Header": "foobar"
+  // };
+
       const response = await axios.post("api/meetings/", {
         name: this.name,
-        email: this.email,
-        motherTongue: this.motherTongue,
+        email: this.user.email,
         toEmail: this.toEmail,
+        motherTongue: this.motherTongue,
         date: this.date,
         time: this.time,
         timezone: this.timezone,
-        meetinglink: this.meetingLink,
-        userID: this.id,
+        meetingLink: this.meetingLink,
+        userID: this.userID,
         toUserID: this.toUserID,
-      });
-      this.meet.push(response.data);
-      console.log(this.email);
-      console.log(this.toEmail);
-      console.log(this.id);
-      console.log(this.time);
+      })
+      this.meetings.push(response.data);
+ 
+      // let meetingsData = {
+      //   name: this.name,
+      //   email: this.email,
+      //   motherTongue: this.motherTongue,
+      //   toEmail: this.toEmail,
+      //   date: this.date,
+      //   time: this.time,
+      //   timezone: this.timezone,
+      //   meetingLink: this.meetingLink,
+      //   userID: this.userID,
+      //   toUserID: this.toUserID,
+      // };
+      // axios.post("http://localhost:3000/api/meetings/",  meetingsData);
+      // console.log(this.email);
+      // console.log(this.toEmail);
+      // console.log(this.userID);
+      // console.log(this.time);
+      // console.log(this.toUserID);
+      // console.log(this.meetingLink);
+      // console.log(meetingsData);
       // this.meetings.push(response.data);
       // Reset form field
-      this.name = "";
-      this.email = "";
-      this.message = "";
-      this.toEmail = "";
-      this.motherTongue = "";
-      this.date = "";
-      this.time = "";
-      this.timezone = "";
+      // this.name = "";
+      // this.email = "";
+      // this.message = "";
+      // this.toEmail = "";
+      // this.motherTongue = "";
+      // this.date = "";
+      // this.time = "";
+      // this.timezone = "";
     },
   },
 };
