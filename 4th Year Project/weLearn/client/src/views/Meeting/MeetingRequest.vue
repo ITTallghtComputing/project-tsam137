@@ -7,7 +7,6 @@
       <input
         type="text"
         v-model="motherTongue"
-        required
         name="motherTongue"
         placeholder="What Language are you teaching this person"
       />
@@ -15,7 +14,6 @@
       <input
         type="email"
         v-model="email"
-        required
         name="email"
         placeholder="Your Email"
       />
@@ -23,20 +21,18 @@
       <input
         type="email"
         v-model="toEmail"
-        required
         name="toEmail"
         placeholder="Their Email"
       />
       <label>Date/Time</label>
-      <input type="date" v-model="date" name="date" required />
-      <input type="time" v-model="time" name="time" required />
+      <input type="date" v-model="date" name="date" />
+      <input type="time" v-model="time" name="time" />
       <br />
       <br />
       <label>Timezone</label>
       <input
         type="text"
         v-model="timezone"
-        required
         name="timezone"
         placeholder="What is your timezone"
       />
@@ -46,18 +42,17 @@
         <p>Please select different Date and or Time</p>
       </div>
       <br />
+
       <input type="submit" value="Send" />
     </form>
   </div>
 </template>
 
 <script>
-import emailjs from 'emailjs-com';
+import emailjs from "emailjs-com";
 import axios from "axios";
-// import qs from 'qs'
-
 export default {
-  name: "meetingrequest",
+  name: "MeetingRequest",
   data() {
     return {
       id: 0,
@@ -73,8 +68,9 @@ export default {
       date: "",
       time: "",
       timezone: "",
-      meetinglink: "https://meet.google.com/xze-juie-xwr",
+      meetingLink: "https://meet.google.com/xze-juie-xwr",
       dateError: false,
+      goAgain: true
     };
   },
   created() {
@@ -82,22 +78,46 @@ export default {
     this.name = this.$route.params.thisName;
     this.email = this.$route.params.thisEmail;
     this.toEmail = this.$route.params.emailIn;
-    this.meetingLink ="https://meet.google.com/xze-juie-xwr"
+    this.goAgain= true
+    // console.log(this.name);
+    //           console.log(this.email);
+    //           console.log(this.toEmail);
     this.getUser();
   },
   async mounted() {
     const response = await axios.get("api/meetings/");
     this.meetings = response.data;
+    // const meetResponse = await axios.get(
+    //   "api/meetings/60315c0e74dbf09480469802"
+    // );
+    // this.meet = meetResponse.data;
     const responseUser = await axios.get("api/profileList/");
     this.users = responseUser.data;
   },
   methods: {
     sendEmail(e) {
+      
       for (var i = 0; i < this.users.length; i++) {
+        while(this.goAgain == true){
         if (
           this.toEmail == this.meetings[i].email ||
+          this.email == this.meetings[i].email ||
+          this.email == this.meetings[i].toEmail ||
+          this.toEmail == this.meetings[i].email ||
           this.users[i].email == this.meetings[i].email ||
-          this.users[i].email == this.meetings[i].toEmail
+          this.users[i].email == this.meetings[i].toEmail ||
+          this.toEmail == this.meetings[1].email ||
+          this.email == this.meetings[1].email ||
+          this.email == this.meetings[1].toEmail ||
+          this.toEmail == this.meetings[1].email ||
+          this.users[i].email == this.meetings[1].email ||
+          this.users[i].email == this.meetings[1].toEmail ||
+          this.toEmail == this.meetings[2].email ||
+          this.email == this.meetings[2].email ||
+          this.email == this.meetings[2].toEmail ||
+          this.toEmail == this.meetings[2].email ||
+          this.users[i].email == this.meetings[2].email ||
+          this.users[i].email == this.meetings[2].toEmail
         ) {
           var dateSubString = this.meetings[i].date.substring(0, 10);
           if (
@@ -107,18 +127,24 @@ export default {
             this.dateError = true;
           } else {
             this.dateError = false;
-
             try {
-              emailjs.sendForm('welearn', 'template_zhrwwhb', e.target, 'user_XsK6yvrBzsbxesJ0vxJmQ', {
-                name: this.user.name,
-                email: this.user.email,
-                motherTongue: this.user.motherTongue,
-                toEmail: this.toEmail,
-                date: this.date,
-                time: this.time,
-                timezone: this.timezone,
-                meetinglink: "https://meet.google.com/xze-juie-xwr"
-              });
+              emailjs.sendForm(
+                "welearn",
+                "template_zhrwwhb",
+                e.target,
+                "user_XsK6yvrBzsbxesJ0vxJmQ",
+                {
+                  name: this.user.name,
+                  email: this.user.email,
+                  motherTongue: this.user.motherTongue,
+                  toEmail: this.toEmail,
+                  date: this.date,
+                  time: this.time,
+                  timezone: this.timezone,
+                  meetinglink: "https://meet.google.com/xze-juie-xwr",
+                }
+              );
+
               for (var j = 0; j < this.users.length; j++) {
                 if (this.users[j].email == this.toEmail) {
                   this.toUserID = this.users[j]._id;
@@ -127,75 +153,40 @@ export default {
                   this.userID = this.users[j]._id;
                 }
               }
-              this.pushMeeting()
-
+              let meetingsData = {
+                name: this.name,
+                email: this.email,
+                motherTongue: this.motherTongue,
+                toEmail: this.toEmail,
+                date: this.date,
+                time: this.time,
+                timezone: this.timezone,
+                meetingLink: this.meetingLink,
+                userID: this.userID,
+                toUserID: this.toUserID,
+              };
+              if(this.goAgain == true){
+                axios.post(`http://localhost:3000/api/meetings`, meetingsData);
+                this.goAgain = false;
+                this.$router.push("/profile");
+              }
+              
               console.log("it works!!!");
             } catch (error) {
               console.log({ error });
-              console.log(this.meetingsData);
+
             }
           }
         }
       }
+    }
     },
     getUser() {
       axios
         .get(`http://localhost:3000/api/profileList/${this.id}`)
         .then((data) => (this.user = data.data));
-
     },
     
-     async pushMeeting() {
-  //      const headers = { 
-  //   "Authorization": "Bearer my-token",
-  //   "My-Custom-Header": "foobar"
-  // };
-
-      const response = await axios.post("api/meetings/", {
-        name: this.name,
-        email: this.user.email,
-        toEmail: this.toEmail,
-        motherTongue: this.motherTongue,
-        date: this.date,
-        time: this.time,
-        timezone: this.timezone,
-        meetingLink: this.meetingLink,
-        userID: this.userID,
-        toUserID: this.toUserID,
-      })
-      this.meetings.push(response.data);
- 
-      // let meetingsData = {
-      //   name: this.name,
-      //   email: this.email,
-      //   motherTongue: this.motherTongue,
-      //   toEmail: this.toEmail,
-      //   date: this.date,
-      //   time: this.time,
-      //   timezone: this.timezone,
-      //   meetingLink: this.meetingLink,
-      //   userID: this.userID,
-      //   toUserID: this.toUserID,
-      // };
-      // axios.post("http://localhost:3000/api/meetings/",  meetingsData);
-      // console.log(this.email);
-      // console.log(this.toEmail);
-      // console.log(this.userID);
-      // console.log(this.time);
-      // console.log(this.toUserID);
-      // console.log(this.meetingLink);
-      // console.log(meetingsData);
-      // this.meetings.push(response.data);
-      // Reset form field
-      // this.name = "";
-      // this.email = "";
-      // this.message = "";
-      // this.toEmail = "";
-      // this.motherTongue = "";
-      // this.date = "";
-      // this.time = "";
-      // this.timezone = "";
-    },
   },
 };
 </script>
@@ -204,7 +195,6 @@ export default {
 * {
   box-sizing: border-box;
 }
-
 label {
   float: left;
 }
@@ -220,7 +210,6 @@ textarea {
   margin-bottom: 16px;
   resize: vertical;
 }
-
 input[type="submit"] {
   background-color: #4caf50;
   color: white;
@@ -236,11 +225,9 @@ input[type="submit"] {
   background: red;
   color: #fff;
 }
-
 input[type="submit"]:hover {
   background-color: #b8c7b9;
 }
-
 .container {
   display: block;
   margin: auto;

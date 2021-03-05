@@ -6,7 +6,7 @@
          </small> -->
     </h4>
     <div class="col-md-7 form-wrapper">
-      <h2>Rate User</h2>
+      <h2>Please rate this person: </h2>
       <br />
       <br />
       <form id="create-post-form" @submit.prevent="rateUser">

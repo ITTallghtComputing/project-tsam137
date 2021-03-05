@@ -6,7 +6,7 @@ if (process.env.NODE_ENV === 'production') {
     };
 } else {
     module.exports = {
-        mongoURI: "mongodb://localhost:3000/api/profileList",
+        mongoURI: "mongodb://localhost:3000/api/meetings",
         secret: 'yoursecret'
     };
 }

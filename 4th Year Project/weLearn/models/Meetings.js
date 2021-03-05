@@ -1,6 +1,11 @@
 const { Schema, model } = require('mongoose')
 
+
 const MeetingsSchema = new Schema({
+    dateNow: {
+        type: Date,
+        default: Date.now,
+    },
     name: {
         type: String,
         required: true,
@@ -8,10 +13,13 @@ const MeetingsSchema = new Schema({
     email: {
         type: String,
         required: true,
+        unique: false
+
     },
     toEmail: {
         type: String,
         required: true,
+        unique: false
     },
     motherTongue: {
         type: String,
@@ -40,14 +48,10 @@ const MeetingsSchema = new Schema({
     toUserID: {
         type: String,
         required: true,
-    },
-    dateNow: {
-        type: Date,
-        default: Date.now,
     }
 });
 
-
+// MeetingsSchema.index({ email: 1, toEmail: 1 }, { unique: false});
 
 const Meetings = model('Meetings', MeetingsSchema);
 

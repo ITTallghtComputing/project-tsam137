@@ -51,7 +51,7 @@ router.get('/:id', async (req, res) => {
 
 /**************************************************************CHECK THIS CODE
 * @route POST api/meetings/
-* @desc Adding a user
+* @desc Adding a meeting
 * @access Public
 */
 router.post('/', (req, res, next) => {
@@ -72,7 +72,7 @@ router.post('/', (req, res, next) => {
         if (err) {
             return res.status(400).json({
                 title: 'error',
-                msg: 'error: ' + err
+                msg: 'Meeting could not be registered'
             })
         }
         return res.status(200).json({

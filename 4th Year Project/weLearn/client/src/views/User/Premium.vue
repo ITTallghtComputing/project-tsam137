@@ -1,19 +1,28 @@
 <template>
-  <div>
+  <div id="container">
+    <div id="innerContainer">
+
+    
     <div v-if="!paidFor" class="">
-      <h1>Premium Account - €{{ product.price }}</h1>
+      <h1>Premium Account - €9.98</h1>
       <br />
       <p>{{ product.description }}</p>
+      <p>You don't have to wait to be able to message multiple times.</p>
+      <p>This makes it a whole lot easier when you are trying to organise meetings.</p>
       <br />
+      <br>
+      <h4>Purchase Below!</h4>
+      <br>
     </div>
     <div v-if="error">
       <h1>Error: {{ this.err }}</h1>
     </div>
     <div v-if="paidFor">
-      <h1>Noice, you bought a beautiful lamp!</h1>
+      <h1>Noice, you have a Premium account!</h1>
     </div>
 
     <div ref="paypal"></div>
+    </div>
   </div>
 </template>
 
@@ -31,8 +40,8 @@ export default {
       newPremium: false,
       id: 0,
       product: {
-        price: 9.98,
-        description: "A Premium Account, like a regular account but way better",
+        price: 10.97,
+        description: "A Premium Account lets you message people unlimitedly",
         img: "./assets/lamp.jpg",
       },
     };
@@ -96,3 +105,13 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.innerContainer{
+   position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+</style>

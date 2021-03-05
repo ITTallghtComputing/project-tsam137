@@ -70,7 +70,7 @@
               <td v-if="user._id == meeting.userID || 
               user._id == meeting.toUserID">
                 <button
-                  @click.prevent="deleteMeeting(meeting, meeting.userID)"
+                  @click.prevent="deleteMeeting(meeting, meeting.key)"
                   class="btn btn-danger"
                 >
                   No
@@ -91,10 +91,8 @@
 </template>
 
 <script>
-//What if the meeting didnt occur but they want to delete it.
 
 
-//19/02/2021 - Both users involved need to have their messageCount incremented. FIX
 import axios from "axios";
 import { mapActions, mapGetters } from "vuex";
 export default {
@@ -121,24 +119,23 @@ export default {
     
     async removeMeeting(meetings) {
       if (confirm("Has this meeting already occured " + this.user.name + "?")) {
-
         this.count+=1;
         let userData = {
         meetingCount: this.count,  
       };
       
-      axios.put(`http://localhost:3000/api/profileList/${this.id}`, userData);
-        // await axios.delete("api/meeting/" + meetings._id);
-        // this.meetings.splice(1);
+      axios.put(`http://localhost:3000/api/profileList/${this.user._id}`, userData);
+        await axios.delete("api/meetings/" + meetings._id);
+        this.meetings.splice(1);
         this.$router.push({ name: "meetingRating", params: { userID: meetings.userID, toUserID: meetings.toUserID,
          meetingsCount: meetings.count } });
       }
     },
-      async deleteMeeting(meetings) {
+      async deleteMeeting(meeting) {
       if (confirm("Do you wish to delete this meeting " + this.user.name + "?")) {
-        await axios.delete("api/meeting/" + meetings._id);
+        await axios.delete("api/meetings/" + meeting._id);
         this.meetings.splice(1);
-        this.$router.push("/usermeetings");
+        this.$router.push("/profile");
       }
     },
   },  
