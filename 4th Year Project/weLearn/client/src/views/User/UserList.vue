@@ -4,7 +4,7 @@
       class="col-md-5 justify-content-right"
       type="text"
       v-model="search"
-      placeholder="Search by Mother Tongue"
+      placeholder="Search by the Language you want to learn"
     />
      <!-- <select name="searchOption" id="search">
     <option value="name">Name</option>
@@ -17,7 +17,7 @@
     <br />
     <div class="row">
       <div class="col-md-12">
-        <table class="table table-striped">
+        <!-- <table class="table table-striped">
           <thead>
             <tr>
               <th>Name</th>
@@ -48,7 +48,37 @@
               </td>
             </tr>
           </tbody>
-        </table>
+        </table> -->
+
+        <div class="col-md-6 col-sm-12 col-lg-6 mt-2 mb-2" v-for="user in filteredUsers" :key="user._id">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title" v-if="user.premium">👑{{user.name}}</h5>
+                            <h5 class="card-title" v-else-if="!user.premium">{{ user.name }}</h5>
+                            <br>
+                            <img class="card-img-top smallimg"
+                             src="https://blog.cpanel.com/wp-content/uploads/2019/08/user-01.png" 
+                             alt="Card image cap"
+                             >
+                            <br>
+                            <p class="card-text">Mother Tongue: {{user.motherTongue}}</p>
+                            <p class="card-text">
+                               Desired Language: {{user.desiredLanguage}}
+                            </p>
+                            <p class="card-text">
+                               Meetings Completed: {{user.meetingCount}}
+                            </p>
+                            <p class="card-text">
+                               Meeting Rating: {{ user.meetingRating.toFixed(0) }}/100
+                            </p>
+                            <router-link
+                  :to="{ name: 'userProfile', params: { id: user._id } }"
+                  class="btn btn-primary"
+                  >👀
+                </router-link>
+                        </div>
+                    </div>
+                </div>
       </div>
     </div>
   </div>
@@ -115,5 +145,12 @@ export default {
 
 .searchBox {
   width: 40%;
+}
+
+.card-img-top {
+    width: 100px;
+    height: 100px;
+
+    object-fit: cover;
 }
 </style>

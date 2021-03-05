@@ -1,5 +1,5 @@
 <template>
-  <div id="container">
+  <div id="container" class="text-center"> 
     <div id="innerContainer">
 
     
@@ -113,5 +113,6 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
+  
 }
 </style>
