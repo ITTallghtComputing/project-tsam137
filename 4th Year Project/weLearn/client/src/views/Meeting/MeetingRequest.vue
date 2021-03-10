@@ -37,7 +37,7 @@
         placeholder="What is your timezone"
       />
       <br />
-      <div v-if="this.dateError" class="alert alert-danger">
+      <div v-if="this.dateError==true" class="alert alert-danger">
         <p>Date & Time already booked.</p>
         <p>Please select different Date and or Time</p>
       </div>
@@ -101,23 +101,9 @@ export default {
         while(this.goAgain == true){
         if (
           this.toEmail == this.meetings[i].email ||
-          this.email == this.meetings[i].email ||
-          this.email == this.meetings[i].toEmail ||
-          this.toEmail == this.meetings[i].email ||
+          this.toEmail == this.meetings[i].toEmail ||
           this.users[i].email == this.meetings[i].email ||
-          this.users[i].email == this.meetings[i].toEmail ||
-          this.toEmail == this.meetings[1].email ||
-          this.email == this.meetings[1].email ||
-          this.email == this.meetings[1].toEmail ||
-          this.toEmail == this.meetings[1].email ||
-          this.users[i].email == this.meetings[1].email ||
-          this.users[i].email == this.meetings[1].toEmail ||
-          this.toEmail == this.meetings[2].email ||
-          this.email == this.meetings[2].email ||
-          this.email == this.meetings[2].toEmail ||
-          this.toEmail == this.meetings[2].email ||
-          this.users[i].email == this.meetings[2].email ||
-          this.users[i].email == this.meetings[2].toEmail
+          this.users[i].email == this.meetings[i].toEmail
         ) {
           var dateSubString = this.meetings[i].date.substring(0, 10);
           if (

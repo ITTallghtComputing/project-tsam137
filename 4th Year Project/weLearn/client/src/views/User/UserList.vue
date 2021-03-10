@@ -55,7 +55,7 @@
                         <div class="card-body">
                             <h5 class="card-title" v-if="user.premium">👑{{user.name}}</h5>
                             <h5 class="card-title" v-else-if="!user.premium">{{ user.name }}</h5>
-                            
+                            <hr />
                             <img class="card-img-top smallimg"
                              src="https://blog.cpanel.com/wp-content/uploads/2019/08/user-01.png" 
                              alt="Card image cap"
@@ -71,6 +71,7 @@
                             <p class="card-text">
                                Meeting Rating: {{ user.meetingRating.toFixed(0) }}/100
                             </p>
+                            <hr />
                             <router-link
                   :to="{ name: 'userProfile', params: { id: user._id } }"
                   class="btn btn-primary"

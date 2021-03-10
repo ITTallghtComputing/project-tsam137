@@ -9,7 +9,12 @@
     <h2 v-if="toUser.premium">👑 <span>{{ toUser.name }}</span>'s Premium Profile</h2>
     <h2 v-else-if="!toUser.premium"><span>{{ toUser.name }}</span>'s Profile</h2>
     <br />
-
+    <img class="card-img-top smallimg"
+                             src="https://blog.cpanel.com/wp-content/uploads/2019/08/user-01.png" 
+                             alt="Card image cap"
+                             >
+                             <br>
+                             <br>
     <div class="card" v-if="toUser">
       <ul class="list-group">
         <li class="list-group-item">Name: {{ toUser.name }}</li>
@@ -38,7 +43,9 @@
                   >Request Meeting
                 </router-link>
               </td>
+              
   </div>
+ 
 </template>
 <script>
 import axios from "axios";
@@ -66,3 +73,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.card-img-top {
+    width: 150px;
+    height: 150px;
+
+    object-fit: cover;
+}
+</style>
