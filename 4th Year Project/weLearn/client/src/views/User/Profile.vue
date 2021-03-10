@@ -14,6 +14,7 @@
       Click on Premium in your navigation bar to purchase Premium for only €9.98 and get loads of cool features.
     </p>
     <br>
+    <br />
     <div v-if="user._id != '5fcd335aba244d058e44c002'">
     <h2 v-if="user.premium">
       👑 Premium Profile
@@ -21,17 +22,9 @@
     <h2 v-else-if="!user.premium">
       Regular Profile
     </h2>
-    
     </div>
     <h2 v-else-if="user._id == '5fcd335aba244d058e44c002'">Admin Profile</h2>
-    
     <br />
-    <img class="card-img-top smallimg"
-                             src="https://blog.cpanel.com/wp-content/uploads/2019/08/user-01.png" 
-                             alt="Card image cap"
-                             >
-                             <br>
-                             <br>
     <div class="card" v-if="user">
       <ul class="list-group">
         <li class="list-group-item">Name: {{ user.name }}</li>
@@ -90,11 +83,5 @@ export default {
 <style>
 .card {
   border-radius: 5px;
-}
-.card-img-top {
-    width: 150px;
-    height: 150px;
-
-    object-fit: cover;
 }
 </style>
