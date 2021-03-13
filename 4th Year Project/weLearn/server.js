@@ -17,7 +17,7 @@ app.use(cors())
 app.use(morgan('tiny'))
 app.use(bodyParser.json())
 
-mongoose.connect("mongodb://localhost:27017/chatapp");
+// mongoose.connect("mongodb://localhost:27017/chatapp");
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -108,8 +108,8 @@ app.use('/api/profileList', users);
 const meetings = require('./routes/api/meetings');
 app.use('/api/meetings', meetings);
 
-const chats = require('./routes/api/chats');
-app.use('/api/chats', chats);
+// const chats = require('./routes/api/chats');
+// app.use('/api/chats', chats);
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/dist'))
