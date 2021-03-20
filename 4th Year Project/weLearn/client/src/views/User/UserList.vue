@@ -53,7 +53,11 @@
         <div class="col-md-6 col-sm-12 col-lg-6 mt-2 mb-2" v-for="user in filteredUsers" :key="user._id">
                     <div class="card text-center">
                         <div class="card-body">
-                            <h5 class="card-title" v-if="user.premium">👑{{user.name}}</h5>
+                            <h5 class="card-title" v-if="user.premium">
+                              <img 
+                src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/271/crown_1f451.png" 
+                alt="Kitten" width="25" height="25" style="position: relative; top: -5px;">
+                              {{user.name}}</h5>
                             <h5 class="card-title" v-else-if="!user.premium">{{ user.name }}</h5>
                             
                             <img class="card-img-top smallimg"

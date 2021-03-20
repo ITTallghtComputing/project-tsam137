@@ -4,7 +4,8 @@
 
     
     <div v-if="!paidFor" class="">
-      <h1>Premium Account - €9.98</h1>
+      <h1>
+        Premium Account - €9.98</h1>
       <br />
       <p>{{ product.description }}</p>
       <p>You don't have to wait to be able to message multiple times.</p>

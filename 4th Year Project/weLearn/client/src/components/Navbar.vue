@@ -1,10 +1,25 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <li class="nav-item" v-if="isLoggedIn">
-      <router-link class="navbar-brand" to="/list">🎓 weLearn</router-link>
+      <router-link class="navbar-brand" to="/list">
+      <span><img
+                  src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/271/graduation-cap_1f393.png"
+                  alt="Kitten"
+                  width="25"
+                  height="25"
+                  style="position: relative;"
+                /></span> weLearn</router-link>
     </li>
     <li class="nav-item" v-else-if="!isLoggedIn">
-      <router-link class="navbar-brand" to="/">🎓 weLearn</router-link>
+      <router-link class="navbar-brand" to="/">
+      <span><img
+                  src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/271/graduation-cap_1f393.png"
+                  alt="Kitten"
+                  width="25"
+                  height="25"
+                  style="position: relative;"
+                /></span>
+       weLearn</router-link>
     </li>
     <button
       class="navbar-toggler"
@@ -39,7 +54,15 @@
         </li>
         <li class="nav-item" v-if="isLoggedIn && !(user.premium)">
           <!-- <li class="nav-item" v-if=""> -->
-          <router-link :to="{ name: 'premium', params: { id: user._id, premium: user.premium } }" class="nav-link">👑 Premium</router-link>
+          <router-link :to="{ name: 'premium', params: { id: user._id, premium: user.premium } }" class="nav-link">
+            <img
+                  src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/271/crown_1f451.png"
+                  alt="Kitten"
+                  width="25"
+                  height="25"
+                  style="position: relative; top: -5px"
+                />
+             Premium</router-link>
           
         </li>
         <li class="nav-item" v-if="isLoggedIn">

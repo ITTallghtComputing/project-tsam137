@@ -6,7 +6,15 @@
          </small> -->
     </h4>
 
-    <h2 v-if="toUser.premium">👑 <span>{{ toUser.name }}</span>'s Premium Profile</h2>
+    <h2 v-if="toUser.premium">
+      <img
+                  src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/271/crown_1f451.png"
+                  alt="Kitten"
+                  width="50"
+                  height="50"
+                  style="position: relative; top: -5px"
+                />
+       <span> {{ toUser.name }}</span>'s Premium Profile</h2>
     <h2 v-else-if="!toUser.premium"><span>{{ toUser.name }}</span>'s Profile</h2>
     <br />
 

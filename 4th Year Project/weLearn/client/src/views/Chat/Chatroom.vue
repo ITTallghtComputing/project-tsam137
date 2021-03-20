@@ -38,7 +38,7 @@ export default {
 	data: function () {
 		return {
 			username: "",
-			socket: io("http://localhost:3000" || process.env.PORT),
+			socket: io("api/chats" || process.env.PORT),
 			messages: [],
 			userss: [],
 			name: "Anonymous",

@@ -17,7 +17,14 @@
     <br />
     <div v-if="user._id != '5fcd335aba244d058e44c002'">
     <h2 v-if="user.premium">
-      👑 Premium Profile
+      <img
+                  src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/271/crown_1f451.png"
+                  alt="Kitten"
+                  width="50"
+                  height="50"
+                  style="position: relative; top: -5px"
+                /> 
+       Premium Profile
     </h2>
     <h2 v-else-if="!user.premium">
       Regular Profile
