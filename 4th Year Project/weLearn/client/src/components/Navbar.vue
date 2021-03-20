@@ -35,7 +35,7 @@
           <router-link to="/profile" class="nav-link"> <span class="	fa fa-user-circle"></span> My Profile</router-link>
         </li>
         <li class="nav-item" v-if="isLoggedIn">
-          <router-link to="/room" class="nav-link"> <span class="	fa fa-comments"></span> Chatroom</router-link>
+          <router-link to="/room" class="nav-link"> <span class="	fa fa-comments"></span> Chatrooms</router-link>
         </li>
         <li class="nav-item" v-if="isLoggedIn && !(user.premium)">
           <!-- <li class="nav-item" v-if=""> -->

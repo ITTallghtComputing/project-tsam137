@@ -19,7 +19,7 @@ const router = new VueRouter({
   },
 
   {
-    path: '/',
+    path: '',
     name: 'login',
     component: () => import('../views/User/Login')
   },
@@ -54,6 +54,14 @@ const router = new VueRouter({
     path: '/chatroom',
     name: 'chatroom',
     component: () => import('../views/Chat/Chatroom'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/chatroomLanguage',
+    name: 'chatroomLanguage',
+    component: () => import('../views/Chat/ChatroomLanguage'),
     meta: {
       requiresAuth: true
     }

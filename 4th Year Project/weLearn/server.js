@@ -9,7 +9,7 @@ const profileListRoutes = require('./routes/api/profileList')
 const path = require('path')
 const passport = require('passport');
 const http = require("http").Server(app);
-const ChatModel = require('./models/ChatModel')
+// const ChatModel = require('./models/ChatModel')
 const fs = require('fs')
 const { v4: uuidV4 } = require('uuid')
 
@@ -34,37 +34,13 @@ app.use((req, res, next) => {
 
 const io = require("socket.io")(http, {
 	cors: {
-	  origin: "http://localhost:8080",
+	  origin: "http://localhost:8080" || "https://we-learn-app.herokuapp.com",
 	  methods: ["GET", "POST"]
 	}
   });
   
 
-/**
-Video Chat
-**/
 
-app.set('view engine', 'ejs')
-app.use(express.static('public'))
-
-app.get('/', (req, res) => {
-  res.redirect(`/${uuidV4()}`)
-})
-
-app.get('/:room', (req, res) => {
-  res.render('room', { roomId: req.params.room })
-})
-
-io.on('connection', socket => {
-  socket.on('join-room', (roomId, userId) => {
-    socket.join(roomId)
-    socket.to(roomId).broadcast.emit('user-connected', userId)
-
-    socket.on('disconnect', () => {
-      socket.to(roomId).broadcast.emit('user-disconnected', userId)
-    })
-  })
-})
 
 
  let userss = [];
@@ -108,8 +84,8 @@ app.use('/api/profileList', users);
 const meetings = require('./routes/api/meetings');
 app.use('/api/meetings', meetings);
 
-// const chats = require('./routes/api/chats');
-// app.use('/api/chats', chats);
+const chats = require('./routes/api/chats');
+app.use('/api/chats', chats);
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/dist'))
@@ -118,6 +94,19 @@ if (process.env.NODE_ENV === 'production') {
     })
 }
 
+
+const ChatSchema = mongoose.Schema({
+	username: String,
+	msg: String
+});
+
+const ChatModel = mongoose.model("chats", ChatSchema);
+
+ChatModel.find((err, result) => {
+	if (err) throw err;
+
+	messages = result;
+});
 
 io.on("connection", socket => {
 	socket.emit('loggedIn', {
