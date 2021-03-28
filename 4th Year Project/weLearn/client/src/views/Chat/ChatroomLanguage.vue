@@ -27,7 +27,7 @@ export default {
 	data: function () {
 		return {
 			username: "",
-			socket: io("http://localhost:3000" || process.env.PORT),
+			socket: io(':3000' || "https://we-learn-app.herokuapp.com/"),
 			messages: [],
 			userss: []
 		}
@@ -59,12 +59,10 @@ export default {
 		}
 	},
 mounted: function () {
-		console.log(this.id),
 		this.name = this.$route.params.name;
 		this.joinServer();
 		const response =  axios.get(`api/profileList/${this.id}`);
         this.userData = response.data;
-		console.log(this.userData);
 		this.username = this.name
 	},
 	created() {

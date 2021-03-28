@@ -58,6 +58,15 @@ const router = new VueRouter({
       requiresAuth: true
     }
   },
+
+  {
+    path: '/chat',
+    name: 'chat',
+    component: () => import('../views/Chat/Chat'),
+    meta: {
+      requiresAuth: true
+    }
+  },
   {
     path: '/chatroomLanguage',
     name: 'chatroomLanguage',
@@ -110,6 +119,14 @@ const router = new VueRouter({
     path: '/premium/:id',
     name: 'premium',
     component: () => import('../views/User/Premium.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/test-language',
+    name: 'testLanguage',
+    component: () => import('../views/Test/TestLanguage.vue'),
     meta: {
       requiresAuth: true
     }

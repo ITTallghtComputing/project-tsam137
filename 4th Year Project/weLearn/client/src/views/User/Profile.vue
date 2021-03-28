@@ -49,14 +49,23 @@
       </ul>
     </div>
     <br>
-    <td>
+    
       <!-- userID: meetings.userID, toUserID: meetings.toUserID -->
                 <router-link
                   :to="{ name: 'usermeetings', params: { id: user._id, meetingCount: user.meetingCount, } }" 
                   class="btn btn-primary"
                   >My Meetings
                 </router-link>
-              </td>
+              
+              
+            
+ &nbsp;&nbsp;&nbsp;&nbsp;
+                <router-link
+                  :to="{ name: 'testLanguage'}" 
+                  class="btn btn-success"
+                  >Language Quiz
+                </router-link>
+              
               <br>
   <br>
   <br>

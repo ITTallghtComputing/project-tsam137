@@ -1,26 +1,16 @@
 <template>
 	<div id="app">
 		<div id="container">
-			<div class="header">
+		<div class="header">
 			<h1>Global Chatroom</h1>
-			<p class="username">Name: {{ user.name }}</p>
+
+			<p>This Chatroom is for all.</p>
+			<br>
+			<p class="username">Username: {{ user.name }}</p>
 			<p class="online">Online: {{ userss.length }}</p>
-			
 		</div>
-		<div v-if="user.premium">
-			<ChatroomApp v-bind:messages="messages" v-on:sendMessage="this.sendMessage" />
-		</div>
-		<div v-else-if="!user.premium">
-			<p class="count">Messages left: {{ count }} </p>
-			<p>Buy Premium for Unlimited Messages</p>
-			<div class="messageBox" v-if="count>0">
-			
-			<ChatroomApp v-bind:messages="messages" v-on:sendMessage="this.sendMessage" />
-		</div>
-		</div>
-		
-		</div>
-		
+		<ChatroomApp v-bind:messages="messages" v-on:sendMessage="this.sendMessage" />
+	</div>
 	</div>
 </template>
 
@@ -30,25 +20,21 @@ import axios from "axios";
 import ChatroomApp from './ChatroomApp';
 import { mapActions, mapGetters } from "vuex";
 export default {
-	name: 'chatroom',
+	name: 'chatroomLanguage',
 	components: {
 		ChatroomApp
 	},
-	computed: mapGetters(["user"]),
 	data: function () {
 		return {
 			username: "",
-			socket: io("api/chats" || process.env.PORT),
+			socket: io(':3000' || "https://we-learn-app.herokuapp.com/"),
 			messages: [],
-			userss: [],
-			name: "Anonymous",
-			id: "0",
-			count: 10,
-			userData: {}
+			userss: []
 		}
 	},
+     computed: mapGetters(["user"]),
 	methods: {
-		...mapActions(["getProfile"]),
+        ...mapActions(["getProfile"]),
 		joinServer: function () {
 			this.socket.on('loggedIn', data => {
 				this.messages = data.messages;
@@ -61,8 +47,8 @@ export default {
 			this.socket.on('userOnline', users => {
 				this.userss.push(users);
 			});
-			this.socket.on('userLeft', users => {
-				this.userss.splice(this.userss.indexOf(users), 1);
+			this.socket.on('userLeft', user => {
+				this.userss.splice(this.userss.indexOf(user), 1);
 			});
 			this.socket.on('msg', message => {
 				this.messages.push(message);
@@ -70,17 +56,13 @@ export default {
 		},
 		sendMessage: function (message) {
 			this.socket.emit('msg', message);
-			this.count = this.count-1
-		},
-		
+		}
 	},
-	mounted: function () {
-		console.log(this.id),
+mounted: function () {
 		this.name = this.$route.params.name;
 		this.joinServer();
 		const response =  axios.get(`api/profileList/${this.id}`);
         this.userData = response.data;
-		console.log(this.userData);
 		this.username = this.name
 	},
 	created() {
@@ -108,6 +90,7 @@ body {
 	padding: 15px;
 	box-sizing: border-box;
 }
+
 #container{
 	max-width: 768px;
 	display: flex;
