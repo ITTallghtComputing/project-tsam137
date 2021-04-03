@@ -1,5 +1,6 @@
 <template>
-  <div id="list">
+<div id="container">
+  <div id="list" v-if="user._id == '5fcd335aba244d058e44c002'">
     <input
       class="col-md-5 justify-content-right"
       type="text"
@@ -56,12 +57,21 @@
         </table>
       </div>
     </div>
+
+    
+  <div id="notAdmin" v-if="user._id != '5fcd335aba244d058e44c002'">
+    <h1>You are not an Admin.</h1>
   </div>
+</div>
+</div>
+  
 </template>
 
 <script>
 import axios from "axios";
+import { mapGetters, mapActions } from "vuex";
 export default {
+  
   name: "Admin",
   data() {
     return {
@@ -81,16 +91,21 @@ export default {
   async mounted() {
     const response = await axios.get("api/profileList/");
     this.users = response.data;
+    this.getProfile();
   },
   computed: {
+    ...mapGetters(["user"]),
     filteredUsers: function () {
       return this.users.filter((user) => {
         return user.name.toLowerCase().match(this.search.toLowerCase());
       });
     },
   },
-
+created() {
+    this.getProfile();
+  },
   methods: {
+    ...mapActions(["getProfile"]),
     async removeUser(user) {
       if (confirm("Are you sure you want to delete " + user.name)) {
         await axios.delete("api/profileList/" + user._id);

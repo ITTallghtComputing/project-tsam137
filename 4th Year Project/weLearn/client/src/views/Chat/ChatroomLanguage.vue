@@ -27,7 +27,7 @@ export default {
 	data: function () {
 		return {
 			username: "",
-			socket: io(':3000' || "https://we-learn-app.herokuapp.com/"),
+			socket: io('/' || "http://localhost:3000"),
 			messages: [],
 			userss: []
 		}

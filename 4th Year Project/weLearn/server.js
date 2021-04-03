@@ -33,14 +33,16 @@ app.use((req, res, next) => {
     next();
 });
 
-const io = require("socket.io")(http, {
+
+
+var io = require('socket.io')(http);
+  
+this.io = require("socket.io")(http, {
 	cors: {
 	  origin: "https://we-learn-app.herokuapp.com" && "http://localhost:8080",
 	  methods: ["GET", "POST"]
 	}
   });
-  
-
 
 
 
@@ -96,12 +98,14 @@ if (process.env.NODE_ENV === 'production') {
     app.get('*', (req, res) => {
         res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'))
     })
-	 this.io = require("socket.io")(http, {
-		cors: {
-		  origin: "https://we-learn-app.herokuapp.com" && "https://we-learn-app.herokuapp.com/",
-		  methods: ["GET", "POST"]
-		}
-	  });
+
+	var io = require('socket.io')(http);
+	//  var io = require("socket.io")(http, {
+	// 	cors: {
+	// 	  origin: "https://we-learn-app.herokuapp.com" && "https://we-learn-app.herokuapp.com/",
+	// 	  methods: ["GET", "POST"]
+	// 	}
+	//   });
 
 	 
 }

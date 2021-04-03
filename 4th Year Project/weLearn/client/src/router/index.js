@@ -124,7 +124,7 @@ const router = new VueRouter({
     }
   },
   {
-    path: '/test-language',
+    path: '/testLanguage',
     name: 'testLanguage',
     component: () => import('../views/Test/TestLanguage.vue'),
     meta: {
