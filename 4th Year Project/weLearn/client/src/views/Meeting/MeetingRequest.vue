@@ -165,8 +165,21 @@ export default {
                 userID: this.userID,
                 toUserID: this.toUserID,
               };
+              let meetingsData2 = {
+                name: this.name,
+                email: this.email,
+                motherTongue: this.motherTongue,
+                toEmail: this.toEmail,
+                date: this.date,
+                time: this.time,
+                timezone: this.timezone,
+                meetingLink: this.meetingLink,
+                userID: this.toUserID,
+                toUserID: this.userID,
+              };
               if(this.goAgain == true){
                 axios.post(`http://localhost:3000/api/meetings`, meetingsData);
+                axios.post(`http://localhost:3000/api/meetings`, meetingsData2);
                 this.goAgain = false;
                 this.$router.push("/profile");
               }
