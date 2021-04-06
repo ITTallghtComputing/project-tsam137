@@ -85,6 +85,17 @@
             placeholder="Their Meeting Rating score"
           />
         </div>
+        <div class="form-group col-md-12">
+          <label for="title"> Test Score </label>
+          <input
+            type="number"
+            id="testScore"
+            v-model.number="user.testScore"
+            name="title"
+            class="form-control"
+            placeholder="Their Test Score"
+          />
+        </div>
         <div class="form-group col-md-4 pull-right">
           <button class="btn btn-primary" type="submit">Edit User</button>
         </div>
@@ -116,6 +127,7 @@ export default {
         premium: this.user.premium,
         meetingCount: this.user.meetingCount,
         meetingRating: this.user.meetingRating,
+        testScore: this.user.testScore,
       };
       axios.put(`http://localhost:3000/api/profileList/${this.id}`, userData);
       this.$router.push("/admin");

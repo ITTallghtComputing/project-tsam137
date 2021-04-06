@@ -46,6 +46,21 @@
         <li class="list-group-item">
           Meeting Rating: {{ user.meetingRating.toFixed(0) }}/100
         </li>
+        <li class="list-group-item">
+                <img v-if="user.testScore >=1000"
+                src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/271/trophy_1f3c6.png" 
+                alt="gold" width="32" height="32">
+              <img v-if="user.testScore >=70 && user.testScore <=100"
+                src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/271/1st-place-medal_1f947.png" 
+                alt="gold" width="32" height="32">
+                <img v-else-if="user.testScore >=40 && user.testScore <=69"
+                src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/271/2nd-place-medal_1f948.png" 
+                alt="silver" width="32" height="32">
+                <img v-else-if="user.testScore >=10 && user.testScore <=39"
+                src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/271/3rd-place-medal_1f949.png" 
+                alt="bronze" width="32" height="32">
+               Test Points: {{ user.testScore.toFixed(0) }}
+              </li>
       </ul>
     </div>
     <br>
@@ -61,7 +76,7 @@
             
  &nbsp;&nbsp;&nbsp;&nbsp;
                 <router-link
-                  :to="{ name: 'testLanguage'}" 
+                  :to="{ name: 'testLanguage', params: { userID: user._id, userScore: user.testScore}}" 
                   class="btn btn-success"
                   >Language Quiz
                 </router-link>

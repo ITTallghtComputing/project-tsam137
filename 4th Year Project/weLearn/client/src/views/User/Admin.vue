@@ -22,6 +22,7 @@
               <th>Premium</th>
               <th>Meetings Completed</th>
               <th>Meetings Rating</th>
+              <th>Test Points</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -34,6 +35,7 @@
               <td>{{ user.premium }}</td>
               <td>{{ user.meetingCount }}</td>
               <td>{{ user.meetingRating.toFixed(0) }}/100</td>
+              <td>{{ user.testScore.toFixed(0) }}</td>
               
 
               <td>

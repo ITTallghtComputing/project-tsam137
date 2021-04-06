@@ -38,6 +38,10 @@ const ProfilesListSchema = new Schema({
         type: Number,
         default: 0,
     },
+    testScore: {
+        type: Number,
+        default: 0,
+    }
 })
 
 const ProfilesList = model('ProfilesList', ProfilesListSchema)

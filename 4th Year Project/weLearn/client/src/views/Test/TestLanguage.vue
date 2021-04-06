@@ -180,10 +180,15 @@
 </template>
 
 <script>
+import axios from "axios"
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "testLanguage",
   data() {
     return {
+      user: [],
+      userID: "",
+      userScore: 0,
       score: 0,
       correctAnswer: false,
       ans: "",
@@ -194,14 +199,26 @@ export default {
       correctAnswers: { q1: "good morning", q2: "see you later", q3: "good night", q4: "good afternoon", q5: "please" },
     };
   },
-  mounted() {
+  async mounted() {
+    this.userID = this.$route.params.userID;
+    this.userScore = this.$route.params.userID;
+    const response = await axios.get("api/profileList/"+this.userID);
+    this.user = response.data;
+    this.getProfile();
     this.score = 0,
     this.answerArray = { q1: "", q2: "", q3: "", q4: "", q5: "" };
     this.correctAnswers= { q1: "good morning", q2: "see you later", q3: "good night", q4: "good afternoon", q5: "please" };
     this.answerStore= { q1: "", q2: "", q3: "", q4: "", q5: "" };
     this.show = { q1: true, q2: true, q3: true, q4: true, q5: true};
   },
+   computed: {
+    ...mapGetters(["user"]),
+  },
+  created() {
+    this.getProfile();
+  },
   methods: {
+    ...mapActions(["getProfile"]),
     question1Answered() {
       
     //   if (this.answerArray.q1 == "") {
@@ -317,6 +334,16 @@ export default {
         this.ans = "";
         this.answerArray.q5 ="";
       }
+
+      this.userScore+=((this.score*10)*2)
+      let userData = {
+        testScore: this.userScore,
+      };
+       axios.put(
+          `http://localhost:3000/api/profileList/${this.userID}`,
+          userData
+        );
+        // this.$router.push("/testResult");
     }
   },
 };
