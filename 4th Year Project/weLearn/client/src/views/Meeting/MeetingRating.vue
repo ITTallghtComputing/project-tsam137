@@ -134,14 +134,14 @@ export default {
       //   }
       if (this.user._id == this.userID) {
         axios.put(
-          `http://localhost:3000/api/profileList/${this.toUserID}`,
+          `api/profileList/${this.toUserID}`,
           toUserData
         );
         this.$router.push("/usermeetings");
       }
       else if((this.user._id == this.toUserID)){
         axios.put(
-          `http://localhost:3000/api/profileList/${this.userID}`,
+          `api/profileList/${this.userID}`,
           toUserData
         );
         this.$router.push("/usermeetings");
@@ -149,10 +149,10 @@ export default {
     },
     getUsers() {
       axios
-        .get(`http://localhost:3000/api/profileList/${this.userID}`)
+        .get(`api/profileList/${this.userID}`)
         .then((data) => (this.firstUser = data.data));
       axios
-        .get(`http://localhost:3000/api/profileList/${this.toUserID}`)
+        .get(`api/profileList/${this.toUserID}`)
         .then((data) => (this.toUser = data.data));
     },
   },

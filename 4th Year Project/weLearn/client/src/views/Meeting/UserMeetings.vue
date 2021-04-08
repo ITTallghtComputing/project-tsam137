@@ -185,7 +185,7 @@ export default {
         meetingCount: this.count,  
       };
       
-      axios.put(`http://localhost:3000/api/profileList/${this.user._id}`, userData);
+      axios.put(`api/profileList/${this.user._id}`, userData);
         await axios.delete("api/meetings/" + meetings._id);
         this.meetings.splice(1);
         this.$router.push({ name: "meetingRating", params: { userID: meetings.userID, toUserID: meetings.toUserID,

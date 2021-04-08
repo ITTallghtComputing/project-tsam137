@@ -129,12 +129,12 @@ export default {
         meetingRating: this.user.meetingRating,
         testScore: this.user.testScore,
       };
-      axios.put(`http://localhost:3000/api/profileList/${this.id}`, userData);
+      axios.put(`api/profileList/${this.id}`, userData);
       this.$router.push("/admin");
     },
     getUser() {
       axios
-        .get(`http://localhost:3000/api/profileList/${this.id}`)
+        .get(`api/profileList/${this.id}`)
         .then((data) => (this.user = data.data));
     },
   },

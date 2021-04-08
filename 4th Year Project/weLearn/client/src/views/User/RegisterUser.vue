@@ -226,7 +226,7 @@ export default {
 
     async pushMeeting() {
       console.log(this.meet)
-      const response = await axios.post("http://localhost:3000/api/meetings/", {
+      const response = await axios.post("api/meetings/", {
         name: this.meet.name,
         email: this.meet.email,
         toEmail: this.meet.toEmail,

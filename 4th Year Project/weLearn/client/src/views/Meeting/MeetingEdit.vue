@@ -111,7 +111,7 @@ export default {
         userID: this.userID,
         toUserID: this.toUserID,
       };
-      axios.post(`http://localhost:3000/api/meetings`, meetingsData);
+      axios.post(`api/meetings`, meetingsData);
       console.log(this.meetingsData);
       // this.newName = meetingsData.name;
       // this.newMotherTongue = meetingsData.email;
@@ -138,7 +138,7 @@ export default {
     },
     getMeeting() {
       axios
-        .get(`http://localhost:3000/api/meetings/${this.id}`)
+        .get(`api/meetings/${this.id}`)
         .then((data) => (this.meeting = data.data));
     },
   },

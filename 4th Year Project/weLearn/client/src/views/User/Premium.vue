@@ -88,7 +88,7 @@ export default {
               premium: this.newPremium,
             };
             axios.put(
-              `http://localhost:3000/api/profileList/${this.id}`,
+              `api/profileList/${this.id}`,
               userData
             );
             console.log(order);

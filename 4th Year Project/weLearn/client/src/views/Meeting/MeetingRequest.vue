@@ -185,8 +185,8 @@ export default {
                 toUserID: this.userID,
               };
               if(this.goAgain == true){
-                axios.post(`http://localhost:3000/api/meetings`, meetingsData);
-                axios.post(`http://localhost:3000/api/meetings`, meetingsData2);
+                axios.post(`api/meetings`, meetingsData);
+                axios.post(`api/meetings`, meetingsData2);
                 this.goAgain = false;
                 this.$router.push("/profile");
                 
@@ -204,7 +204,7 @@ export default {
     },
     getUser() {
       axios
-        .get(`http://localhost:3000/api/profileList/${this.id}`)
+        .get(`api/profileList/${this.id}`)
         .then((data) => (this.user = data.data));
     },
     
