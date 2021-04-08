@@ -36,10 +36,10 @@
 
         <br />
         <br />
-        <form @submit.prevent="question1Answered">
+        <form  @submit.prevent="question1Answered">
           <p>Please enter your answer:</p>
 
-          <input v-model="ans" placeholder="" /><br />
+          <input required v-model="ans" placeholder="" /><br />
 
           <br />
           <button class="btn btn-primary">Submit</button>
@@ -67,7 +67,7 @@
         <form @submit.prevent="question2Answered">
           <p>Please enter your answer:</p>
 
-          <input v-model="ans" placeholder="" /><br />
+          <input required v-model="ans" placeholder="" /><br />
 
           <br />
           <button class="btn btn-primary">Submit</button>
@@ -95,7 +95,7 @@
         <form @submit.prevent="question3Answered">
           <p>Please enter your answer:</p>
 
-          <input v-model="ans" placeholder="" /><br />
+          <input required v-model="ans" placeholder="" /><br />
 
           <br />
           <button class="btn btn-primary">Submit</button>
@@ -123,7 +123,7 @@
         <form @submit.prevent="question4Answered">
           <p>Please enter your answer:</p>
 
-          <input v-model="ans" placeholder="" /><br />
+          <input required v-model="ans" placeholder="" /><br />
 
           <br />
           <button class="btn btn-primary">Submit</button>
@@ -151,7 +151,7 @@
         <form @submit.prevent="question5Answered">
           <p>Please enter your answer:</p>
 
-          <input v-model="ans" placeholder="" /><br />
+          <input required v-model="ans" placeholder="" /><br />
 
           <br />
           <button class="btn btn-primary">Submit</button>
@@ -162,7 +162,7 @@
 
 
     <br />
-    <div id="endOfTest" v-if="show.q5==false">
+    <div id="endOfTest" v-if="showResult==true">
         <h5>Score: {{score}}/5</h5>
     <br>
     <h5>Answer for Question 1: "{{correctAnswers.q1}}" - You put: "{{answerStore.q1}}"</h5>
@@ -172,6 +172,8 @@
     <h5>Answer for Question 5: "{{correctAnswers.q5}}" - You put: "{{answerStore.q5}}"</h5>
     <br>
     <h6>Thank you for taking the test.</h6>
+    <br>
+
     <br>
 
     </div>
@@ -190,7 +192,7 @@ export default {
       userID: "",
       userScore: 0,
       score: 0,
-      correctAnswer: false,
+      showResult: false,
       ans: "",
       answerArray: { q1: "", q2: "", q3: "", q4: "", q5: "" },
       show: { q1: true, q2: true, q3: true, q4: true, q5: true},
@@ -201,15 +203,16 @@ export default {
   },
   async mounted() {
     this.userID = this.$route.params.userID;
-    this.userScore = this.$route.params.userID;
+    this.userScore = this.$route.params.userScore;
     const response = await axios.get("api/profileList/"+this.userID);
     this.user = response.data;
     this.getProfile();
+    this.showResult = false
     this.score = 0,
     this.answerArray = { q1: "", q2: "", q3: "", q4: "", q5: "" };
     this.correctAnswers= { q1: "good morning", q2: "see you later", q3: "good night", q4: "good afternoon", q5: "please" };
     this.answerStore= { q1: "", q2: "", q3: "", q4: "", q5: "" };
-    this.show = { q1: true, q2: true, q3: true, q4: true, q5: true};
+    this.show = { q1: true, q2: false, q3: false, q4: false, q5: false};
   },
    computed: {
     ...mapGetters(["user"]),
@@ -231,42 +234,48 @@ export default {
     this.ans = this.ans.toLowerCase();
       this.answerArray.q1 = this.ans;
        this.answerStore.q1 = this.answerArray.q1;
-      if(this.answerArray.q1 == this.correctAnswer.q1){
-        this.score+=
+      if(this.answerArray.q1 == this.correctAnswers.q1){
+         this.score =  this.score+1
         this.show.q1 = false;
         this.ans = "";
         this.answerArray.q1 ="";
+        this.show.q2 = true;
       }
       else if(this.answerArray.q1 == ""){
           this.ans = "";
+          this.show.q2 = true;
       }
       else{
         this.wrongAnswers.q1 = this.answerArray.q1
         this.show.q1 = false;
         this.ans = "";
         this.answerArray.q1 ="";
+        this.show.q2 = true;
       }
-
+      console.log(this.score)
     },
     question2Answered() {
         this.ans = this.ans.toLowerCase();
       this.answerArray.q2 = this.ans;
       this.answerStore.q2 = this.answerArray.q2;
     //Q2 If
-      if(this.answerArray.q2 == this.correctAnswer.q2){
-        this.score+=
+      if(this.answerArray.q2 == this.correctAnswers.q2){
+         this.score =  this.score+1
         this.show.q2 = false;
         this.ans = "";
         this.answerArray.q2 ="";
+        this.show.q3 = true;
       }
       else if(this.answerArray.q2 == ""){
           this.ans = "";
+          this.show.q3 = true;
       }
       else{
         this.wrongAnswers.q2 = this.answerArray.q2
         this.show.q2 = false;
         this.ans = "";
         this.answerArray.q2 ="";
+        this.show.q3 = true;
       }
     },
 
@@ -275,21 +284,25 @@ export default {
       this.answerArray.q3 = this.ans;
       this.answerStore.q3 = this.answerArray.q3;
     //Q3 If
-      if(this.answerArray.q3 == this.correctAnswer.q3){
-        this.score+=
+      if(this.answerArray.q3 == this.correctAnswers.q3){
+         this.score =  this.score+1
         this.show.q3 = false;
         this.ans = "";
         this.answerArray.q3 ="";
+        this.show.q4 = true;
       }
       else if(this.answerArray.q3 == ""){
           this.ans = "";
+          this.show.q4 = true;
       }
       else{
         this.wrongAnswers.q3 = this.answerArray.q3
         this.show.q3 = false;
         this.ans = "";
         this.answerArray.q3 ="";
+        this.show.q4 = true;
       }
+      console.log(this.score)
     },
 
     question4Answered() {
@@ -297,20 +310,23 @@ export default {
       this.answerArray.q4 = this.ans;
       this.answerStore.q4 = this.answerArray.q4;
     //Q4 If
-      if(this.answerArray.q4 == this.correctAnswer.q4){
-        this.score+=
+      if(this.answerArray.q4 == this.correctAnswers.q4){
+         this.score =  this.score+1
         this.show.q4 = false;
         this.ans = "";
         this.answerArray.q4 ="";
+        this.show.q5 = true;
       }
       else if(this.answerArray.q4 == ""){
           this.ans = "";
+          this.show.q5 = true;
       }
       else{
         this.wrongAnswers.q4 = this.answerArray.q4
         this.show.q4 = false;
         this.ans = "";
         this.answerArray.q4 ="";
+        this.show.q5 = true;
       }
     },
 
@@ -319,26 +335,32 @@ export default {
       this.answerArray.q5 = this.ans;
       this.answerStore.q5 = this.answerArray.q5;
     //Q5 If
-      if(this.answerArray.q5 == this.correctAnswer.q5){
-        this.score+=
+      if(this.answerArray.q5 == this.correctAnswers.q5){
+        this.score =  this.score+1
         this.show.q5 = false;
+        this.showResult = true;
         this.ans = "";
         this.answerArray.q5 ="";
       }
       else if(this.answerArray.q5 == ""){
+          this.showResult = true;
           this.ans = "";
       }
       else{
         this.wrongAnswers.q5 = this.answerArray.q5
         this.show.q5 = false;
+        this.showResult = true;
         this.ans = "";
         this.answerArray.q5 ="";
       }
+      console.log(this.score)
 
-      this.userScore+=((this.score*10)*2)
+      this.userScore=this.userScore+((this.score*10)*2)
       let userData = {
         testScore: this.userScore,
       };
+      console.log(this.userScore)
+      console.log(userData)
        axios.put(
           `http://localhost:3000/api/profileList/${this.userID}`,
           userData

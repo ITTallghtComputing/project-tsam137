@@ -76,6 +76,67 @@
                   No
                 </button>
               </td>
+            </tr>
+
+            <!-- Second Row -->
+            <tr v-for="meeting in meetings" :key="meeting.toUserID">
+              <td v-if="(meeting._id != meeting._id &&
+              user._id == meeting.toUserID) && 
+              user.email == meeting.email">{{ meeting.toEmail }}</td>
+
+              <td v-else-if="(meeting._id != meeting._id &&
+              user._id == meeting.toUserID) &&
+               user.email == meeting.toEmail">{{ meeting.email }}</td>
+               
+              <td v-if="meeting._id != meeting._id &&
+              user._id == meeting.toUserID">{{ meeting.motherTongue }}</td>
+
+              <td v-if="meeting._id != meeting._id &&
+              user._id == meeting.toUserID">{{ meeting.date.substring(0, 10) }}</td>
+
+              <td v-if="meeting._id != meeting._id &&
+              user._id == meeting.toUserID">{{ meeting.time }}</td>
+
+              <td v-if=" meeting._id != meeting._id &&
+              user._id == meeting.toUserID">{{ meeting.timezone }}</td>
+
+             <td v-if="meeting._id != meeting._id &&
+              user._id == meeting.toUserID">
+                <button
+                  @click.prevent="enterMeeting(meeting.meetingLink)"
+                  class="btn btn-primary"
+                >
+                  Enter Meeting
+                </button>
+              </td>
+              
+              <!-- <td>
+                <router-link
+                  :to="{ name: 'meetingEdit', params: { id: meeting._id } }"
+                  class="btn btn-primary"
+                  >Edit
+                </router-link>
+              </td> -->
+              
+              <td v-if="meeting._id != meeting._id &&
+              user._id == meeting.toUserID">
+                <button style="border-radiue=5px"
+                  @click.prevent="removeMeeting(meeting, meeting.userID)"
+                  class="btn btn-success"
+                >
+                  Yes
+                </button>
+              
+              </td>
+              <td v-if="meeting._id != meeting._id &&
+              user._id == meeting.toUserID">
+                <button
+                  @click.prevent="deleteMeeting(meeting, meeting.key)"
+                  class="btn btn-danger"
+                >
+                  No
+                </button>
+              </td>
               <!-- <p v-if="user._id != meeting.userID && user._id != meeting.toUserID">
              You have no meetings {{user.name}}.
              </p> -->

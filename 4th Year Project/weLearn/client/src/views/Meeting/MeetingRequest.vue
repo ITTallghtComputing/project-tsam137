@@ -41,6 +41,10 @@
         <p>Date & Time already booked.</p>
         <p>Please select different Date and or Time</p>
       </div>
+      <div v-if="this.dateError2" class="alert alert-danger">
+        <p>Date & Time already booked.</p>
+        <p>Please select different Date and or Time</p>
+      </div>
       <br />
 
       <input type="submit" value="Send" />
@@ -70,6 +74,7 @@ export default {
       timezone: "",
       meetingLink: "https://meet.google.com/xze-juie-xwr",
       dateError: false,
+      dateError2: false,
       goAgain: true
     };
   },
@@ -125,6 +130,8 @@ export default {
             this.meetings[i].time == this.time
           ) {
             this.dateError = true;
+            this.$router.push("/meetingrequest");
+            this.dateError2 = true;
           } else {
             this.dateError = false;
             try {
@@ -182,6 +189,7 @@ export default {
                 axios.post(`http://localhost:3000/api/meetings`, meetingsData2);
                 this.goAgain = false;
                 this.$router.push("/profile");
+                
               }
               
               console.log("it works!!!");
