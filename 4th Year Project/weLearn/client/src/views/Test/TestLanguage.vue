@@ -22,7 +22,7 @@
 
     <div class="card " style="width: 25rem; text-align: center" v-if="show.q1==true">
       <div class="card-body">
-        <h5 class="card-title">Question 1</h5>
+        <h5 class="card-title">Question 1/5</h5>
         <br />
         <h6 class="card-subtitle mb-2">What is the meaning of:</h6>
         <br />
@@ -50,7 +50,7 @@
 <br>
     <div class="card" style="width: 25rem; text-align: center" v-if="show.q2==true">
       <div class="card-body">
-        <h5 class="card-title">Question 2</h5>
+        <h5 class="card-title">Question 2/5</h5>
         <br />
         <h6 class="card-subtitle mb-2">What is the meaning of:</h6>
         <br />
@@ -78,7 +78,7 @@
     <br>
     <div class="card" style="width: 25rem; text-align: center" v-if="show.q3==true">
       <div class="card-body">
-        <h5 class="card-title">Question 3</h5>
+        <h5 class="card-title">Question 3/5</h5>
         <br />
         <h6 class="card-subtitle mb-2">What is the meaning of:</h6>
         <br />
@@ -106,7 +106,7 @@
     <br>
     <div class="card" style="width: 25rem; text-align: center" v-if="show.q4==true">
       <div class="card-body">
-        <h5 class="card-title">Question 4</h5>
+        <h5 class="card-title">Question 4/5</h5>
         <br />
         <h6 class="card-subtitle mb-2">What is the meaning of:</h6>
         <br />
@@ -134,7 +134,7 @@
     <br>
     <div class="card" style="width: 25rem; text-align: center" v-if="show.q5==true">
       <div class="card-body">
-        <h5 class="card-title">Question 5</h5>
+        <h5 class="card-title">Question 5/5</h5>
         <br />
         <h6 class="card-subtitle mb-2">What is the meaning of:</h6>
         <br />
