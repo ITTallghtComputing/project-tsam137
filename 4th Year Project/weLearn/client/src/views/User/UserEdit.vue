@@ -96,6 +96,17 @@
             placeholder="Their Test Score"
           />
         </div>
+        <div class="form-group col-md-12">
+          <label for="title"> Image URL </label>
+          <input
+            type="text"
+            id="imgURL"
+            v-model="user.imgURL"
+            name="title"
+            class="form-control"
+            placeholder="Their Image URL"
+          />
+        </div>
         <div class="form-group col-md-4 pull-right">
           <button class="btn btn-primary" type="submit">Edit User</button>
         </div>
@@ -128,13 +139,14 @@ export default {
         meetingCount: this.user.meetingCount,
         meetingRating: this.user.meetingRating,
         testScore: this.user.testScore,
+        imgURL: this.user.imgURL,
       };
-      axios.put(`api/profileList/${this.id}`, userData);
+      axios.put(`/api/profileList/${this.id}`, userData);
       this.$router.push("/admin");
     },
     getUser() {
       axios
-        .get(`api/profileList/${this.id}`)
+        .get(`/api/profileList/${this.id}`)
         .then((data) => (this.user = data.data));
     },
   },

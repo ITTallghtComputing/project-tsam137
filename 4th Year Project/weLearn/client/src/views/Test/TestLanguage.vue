@@ -362,7 +362,7 @@ export default {
       console.log(this.userScore)
       console.log(userData)
        axios.put(
-          `api/profileList/${this.userID}`,
+          `/api/profileList/${this.userID}`,
           userData
         );
         // this.$router.push("/testResult");

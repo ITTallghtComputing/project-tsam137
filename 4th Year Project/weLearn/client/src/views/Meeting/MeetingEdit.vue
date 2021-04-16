@@ -138,7 +138,7 @@ export default {
     },
     getMeeting() {
       axios
-        .get(`api/meetings/${this.id}`)
+        .get(`/api/meetings/${this.id}`)
         .then((data) => (this.meeting = data.data));
     },
   },

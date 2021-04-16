@@ -70,12 +70,46 @@
               <h5 class="card-title" v-else-if="!user.premium">
                 {{ user.name }}
               </h5>
+              <img v-if="user.imgURL=='https://t4.ftcdn.net/jpg/02/19/63/31/360_F_219633151_BW6TD8D1EA9OqZu4JgdmeJGg4JBaiAHj.jpg'"
+                class="card-img-top smallimg"
+                src="https://t4.ftcdn.net/jpg/02/19/63/31/360_F_219633151_BW6TD8D1EA9OqZu4JgdmeJGg4JBaiAHj.jpg"
+                alt="Card image cap"
+                style="border-radius: 20%;"
+              />
+              <img v-else-if="user.imgURL=='https://image.freepik.com/free-photo/headshot-photo-asian-man-with-happy-face-grey-background_39688-1707.jpg'"
+                class="card-img-top smallimg"
+                src="https://image.freepik.com/free-photo/headshot-photo-asian-man-with-happy-face-grey-background_39688-1707.jpg"
+                alt="Card image cap"
+                style="border-radius: 20%;"
+              />
 
-              <img
+              <img v-else-if="user.imgURL=='https://www.epicscotland.com/wp-content/uploads/2019/09/Business-Headshot-Women-004.jpg'"
+                class="card-img-top smallimg"
+                src="https://www.epicscotland.com/wp-content/uploads/2019/09/Business-Headshot-Women-004.jpg"
+                alt="Card image cap"
+                style="border-radius: 20%;"
+              />
+
+              <img v-else-if="user.imgURL=='https://www.epicscotland.com/wp-content/uploads/2019/09/Business-Headshot-Women-018.jpg'"
+                class="card-img-top smallimg"
+                src="https://www.epicscotland.com/wp-content/uploads/2019/09/Business-Headshot-Women-018.jpg"
+                alt="Card image cap"
+                style="border-radius: 20%;"
+              />
+
+              <img v-else-if="user.imgURL=='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8aGVhZHNob3R8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&w=1000&q=80'"
+                class="card-img-top smallimg"
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8aGVhZHNob3R8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&w=1000&q=80"
+                alt="Card image cap"
+                style="border-radius: 20%;"
+              />
+
+              <img v-else-if="user.imgURL=='https://blog.cpanel.com/wp-content/uploads/2019/08/user-01.png'"
                 class="card-img-top smallimg"
                 src="https://blog.cpanel.com/wp-content/uploads/2019/08/user-01.png"
                 alt="Card image cap"
               />
+              <br>
               <br />
               <p class="card-text">Mother Tongue: {{ user.motherTongue }}</p>
               <p class="card-text">
@@ -123,6 +157,7 @@
 
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
 export default {
   name: "UserList",
   data() {
@@ -134,14 +169,17 @@ export default {
       desiredLanguage: "",
       meetingPlatform: "",
       search: "",
+      imgLink: "",
       searchOption: "",
     };
   },
   async mounted() {
     const response = await axios.get("api/profileList/");
     this.users = response.data;
+    this.imgLink = this.user.imgURL;
   },
   computed: {
+    ...mapGetters(["user"]),
     filteredUsers: function () {
       return this.users.filter((user) => {
         if (this.searchOption == "") {

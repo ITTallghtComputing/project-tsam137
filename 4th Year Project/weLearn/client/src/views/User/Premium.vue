@@ -1,11 +1,7 @@
 <template>
-  <div id="container" class="text-center"> 
-    <div id="innerContainer">
-
-    
-    <div v-if="!paidFor" class="">
-      <h1>
-        Premium Account - €9.98</h1>
+  <div v-if="!user.premium">
+    <div v-if="!paidFor" class="text-center">
+      <h1>Premium Account - €{{ product.price }}</h1>
       <br />
       <p>{{ product.description }}</p>
       <p>You don't have to wait to be able to message multiple times.</p>
@@ -18,21 +14,20 @@
     <div v-if="error">
       <h1>Error: {{ this.err }}</h1>
     </div>
-    <div v-if="paidFor">
-      <h1>Noice, you have a Premium account!</h1>
+    <div v-if="paidFor" class="text-center">
+      <h1>Nice, you purchased premium!</h1>
     </div>
 
-    <div ref="paypal"></div>
-    </div>
+    <div v-if="!paidFor" class="text-center" ref="paypal"></div>
   </div>
 </template>
 
 <script>
 // import image from "../assets/lamp.png"
 import axios from "axios";
+import { mapGetters } from "vuex";
 export default {
   name: "HelloWorld",
-
   data: function () {
     return {
       loaded: false,
@@ -41,8 +36,8 @@ export default {
       newPremium: false,
       id: 0,
       product: {
-        price: 10.97,
-        description: "A Premium Account lets you message people unlimitedly",
+        price: 9.98,
+        description: "A Premium Account, like a regular account but way better",
         img: "./assets/lamp.jpg",
       },
     };
@@ -50,10 +45,8 @@ export default {
   created() {
     this.id = this.$route.params.id;
   },
-
   //User: sb-kocd04839797@personal.example.com
   //Pass: f#YFX/32
-
   mounted: function () {
     const script = document.createElement("script");
     script.src =
@@ -61,6 +54,9 @@ export default {
     script.addEventListener("load", this.setLoaded);
     document.body.appendChild(script);
     console.log(this.id);
+  },
+  computed: {
+    ...mapGetters(["user"]),
   },
   methods: {
     setLoaded: function () {
@@ -88,7 +84,7 @@ export default {
               premium: this.newPremium,
             };
             axios.put(
-              `api/profileList/${this.id}`,
+              `/api/profileList/${this.id}`,
               userData
             );
             console.log(order);
@@ -106,14 +102,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.innerContainer{
-   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  
-}
-</style>

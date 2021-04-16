@@ -91,7 +91,7 @@ export default {
     };
   },
   async mounted() {
-    const response = await axios.get("api/profileList/");
+    const response = await axios.get("/api/profileList/");
     this.users = response.data;
     this.getProfile();
   },
@@ -110,7 +110,7 @@ created() {
     ...mapActions(["getProfile"]),
     async removeUser(user) {
       if (confirm("Are you sure you want to delete " + user.name)) {
-        await axios.delete("api/profileList/" + user._id);
+        await axios.delete("/api/profileList/" + user._id);
         this.users.splice(1);
         this.$router.push("/admin");
       }

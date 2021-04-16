@@ -201,14 +201,14 @@ export default {
     };
   },
   async mounted() {
-    const response = await axios.get("api/profileList/");
+    const response = await axios.get("/api/profileList/");
     this.users = response.data;
-    const meetingsResponse = await axios.get("api/meetings/");
+    const meetingsResponse = await axios.get("/api/meetings/");
     this.meet = meetingsResponse.data;
   },
   methods: {
     async addUser() {
-      const response = await axios.post("api/profileList/", {
+      const response = await axios.post("/api/profileList/", {
         name: this.users.name,
         email: this.users.email,
         password: this.users.password,
@@ -226,7 +226,7 @@ export default {
 
     async pushMeeting() {
       console.log(this.meet)
-      const response = await axios.post("api/meetings/", {
+      const response = await axios.post("/api/meetings/", {
         name: this.meet.name,
         email: this.meet.email,
         toEmail: this.meet.toEmail,

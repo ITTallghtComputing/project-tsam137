@@ -41,7 +41,12 @@ const ProfilesListSchema = new Schema({
     testScore: {
         type: Number,
         default: 0,
-    }
+    },
+    imgURL: {
+        type: String,
+        required: true,
+        default: "https://blog.cpanel.com/wp-content/uploads/2019/08/user-01.png",
+    },
 })
 
 const ProfilesList = model('ProfilesList', ProfilesListSchema)

@@ -61,7 +61,7 @@ export default {
 mounted: function () {
 		this.name = this.$route.params.name;
 		this.joinServer();
-		const response =  axios.get(`api/profileList/${this.id}`);
+		const response =  axios.get(`/api/profileList/${this.id}`);
         this.userData = response.data;
 		this.username = this.name
 	},
@@ -73,7 +73,7 @@ mounted: function () {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 body {
 	font-family: 'Avenir', Helvetica, Arial, sans-serif;
 	color: #2C3E50;

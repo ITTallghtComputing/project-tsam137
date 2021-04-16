@@ -185,8 +185,8 @@ export default {
         meetingCount: this.count,  
       };
       
-      axios.put(`api/profileList/${this.user._id}`, userData);
-        await axios.delete("api/meetings/" + meetings._id);
+      axios.put(`/api/profileList/${this.user._id}`, userData);
+        await axios.delete("/api/meetings/" + meetings._id);
         this.meetings.splice(1);
         this.$router.push({ name: "meetingRating", params: { userID: meetings.userID, toUserID: meetings.toUserID,
          meetingsCount: meetings.count } });
@@ -194,7 +194,7 @@ export default {
     },
       async deleteMeeting(meeting) {
       if (confirm("Do you wish to delete this meeting " + this.user.name + "?")) {
-        await axios.delete("api/meetings/" + meeting._id);
+        await axios.delete("/api/meetings/" + meeting._id);
         this.meetings.splice(1);
         this.$router.push("/profile");
       }
@@ -202,7 +202,7 @@ export default {
   },  
   
   async mounted() {
-    const response = await axios.get("api/meetings/");
+    const response = await axios.get("/api/meetings/");
     this.meetings = response.data;
   },
   

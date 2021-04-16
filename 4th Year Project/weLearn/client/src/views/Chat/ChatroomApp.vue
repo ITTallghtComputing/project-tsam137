@@ -42,7 +42,7 @@ export default {
 	
   },
   async mounted() {
-    const response = await axios.get("api/chats/");
+    const response = await axios.get("/api/chats/");
     this.chats = response.data;
   },
 }

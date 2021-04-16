@@ -48,7 +48,9 @@ const MeetingsSchema = new Schema({
     toUserID: {
         type: String,
         required: true,
-    }
+    },
+    
+
 });
 
 // MeetingsSchema.index({ email: 1, toEmail: 1 }, { unique: false});

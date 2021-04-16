@@ -106,7 +106,7 @@ export default {
     this.getProfile();
   },
   async mounted() {
-    const response = await axios.get("api/meetings/");
+    const response = await axios.get("/api/meetings/");
     this.meetings = response.data;
   },
 };

@@ -204,7 +204,7 @@ export default {
     },
     getUser() {
       axios
-        .get(`api/profileList/${this.id}`)
+        .get(`/api/profileList/${this.id}`)
         .then((data) => (this.user = data.data));
     },
     
