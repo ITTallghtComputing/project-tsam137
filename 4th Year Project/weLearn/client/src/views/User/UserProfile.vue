@@ -83,7 +83,7 @@ export default {
     ...mapActions(["getProfile"]),
     getUser() {
       axios
-        .get(`/api/profileList/${this.id}`)
+        .get(`api/profileList/${this.id}`)
         .then((data) => (this.toUser = data.data));
     },
   },

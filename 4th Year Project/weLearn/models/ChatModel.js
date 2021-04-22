@@ -1,18 +1,14 @@
 const { Schema, model } = require('mongoose')
 
 const ChatSchema = Schema({
-    username: String,
-	msg: String
-});
+  username: String,
+  msg: String
+})
 
-
-
-const ChatModel = model('chat', ChatSchema);
+const ChatModel = model('chat', ChatSchema)
 
 ChatModel.find((err, result) => {
-	if (err) throw err;
-
-	messages = result;
-});
+  if (err) throw err
+})
 
 module.exports = ChatModel
