@@ -8,7 +8,7 @@
 			<br>
 			<p class="username">Username: {{ user.name }}</p>
 			<p class="online">Online: {{ userss.length }}</p>
-			<p class="count">Message Count: {{ count }}</p>
+			<p v-if="!user.premium" class="count">Message Count: {{ count }}</p>
 		</div>
 		<span id="premiumChat" v-if="user.premium">
 			<ChatroomApp v-bind:messages="messages" v-on:sendMessage="this.sendMessage" />
@@ -112,19 +112,17 @@ body {
 	flex-direction: column;
 	height: 100vh;
 	width: 100%;
-	// max-width: 768px;
 	margin: 0 auto;
 	padding: 15px;
 	box-sizing: border-box;
 }
 
 #container{
-	max-width: 768px;
+	// max-width: 768px;
 	display: flex;
 	flex-direction: column;
 	height: 100vh;
 	width: 100%;
-	// max-width: 768px;
 	margin: 0 auto;
 	padding: 15px;
 	box-sizing: border-box;

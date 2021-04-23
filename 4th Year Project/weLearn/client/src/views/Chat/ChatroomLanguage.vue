@@ -8,8 +8,32 @@
 			<br>
 			<p class="username">Username: {{ user.name }}</p>
 			<p class="online">Online: {{ userss.length }}</p>
+			<p v-if="!user.premium" class="count">Message Count: {{ count }}</p>
 		</div>
-		<ChatroomApp v-bind:messages="messages" v-on:sendMessage="this.sendMessage" />
+		<span id="premiumChat" v-if="user.premium">
+			<ChatroomApp v-bind:messages="messages" v-on:sendMessage="this.sendMessage" />
+
+		</span>
+
+		<span id="regularChatMessagesLeft" v-else-if="!user.premium && count>0">
+			<ChatroomApp v-bind:messages="messages" v-on:sendMessage="this.sendMessage" />
+
+		</span>
+
+		<span id="regularChatMessagesLeft" v-else-if="!user.premium && count==0">
+			<p class="count">You have {{ count }} messages left, please purchase  
+			
+				<router-link :to="{ name: 'premium', params: { id: user._id, premium: user.premium } }" class="nav-link">
+            <img
+                  src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/271/crown_1f451.png"
+                  alt="Kitten"
+                  width="25"
+                  height="25"
+                  style="position: relative; top: -5px"
+                />
+             Premium</router-link> to get unlimited messaging!</p>
+
+		</span>
 	</div>
 	</div>
 </template>
@@ -29,7 +53,8 @@ export default {
 			username: "",
 			socket: io('/' || "http://localhost:3000"),
 			messages: [],
-			userss: []
+			userss: [],
+			count: 10,
 		}
 	},
      computed: mapGetters(["user"]),
@@ -56,6 +81,7 @@ export default {
 		},
 		sendMessage: function (message) {
 			this.socket.emit('msg', message);
+			this.count--;
 		}
 	},
 mounted: function () {
