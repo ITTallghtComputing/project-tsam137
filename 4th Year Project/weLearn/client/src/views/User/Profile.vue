@@ -65,7 +65,6 @@
     </div>
     <br>
     
-      <!-- userID: meetings.userID, toUserID: meetings.toUserID -->
                 <router-link
                   :to="{ name: 'usermeetings', params: { id: user._id, meetingCount: user.meetingCount, } }" 
                   class="btn btn-primary"
