@@ -61,110 +61,6 @@
           </div>
           {{ error }}
         </form>
-<!------------------------------------------------------------------->
-        <!-- <h3 class="text-center">Meeting Register</h3>
-        <br />
-        <form @submit.prevent="pushMeeting">
-          <div class="form-group">
-            <label>Name</label>
-            <input
-              type="text"
-              class="form-control"
-              v-model="meet.name"
-              required
-            />
-          </div>
-
-          <div class="form-group">
-            <label>Email</label>
-            <input
-              type="email"
-              class="form-control"
-              v-model="meet.email"
-              required
-            />
-          </div>
-
-          <div class="form-group">
-            <label>Language</label>
-            <input
-              type="text"
-              class="form-control"
-              v-model="meet.motherTongue"
-              required
-            />
-          </div>
-
-          <div class="form-group">
-            <label>Recepient Email</label>
-            <input
-              type="text"
-              class="form-control"
-              v-model="meet.toEmail"
-              required
-            />
-          </div>
-
-          <div class="form-group">
-            <label>Date</label>
-            <input
-              type="text" v-model="meet.date"
-              class="form-control"
-              required
-            />
-
-          </div>
-
-          <div class="form-group">
-            <label>Time</label>
-            <input type="text"
-            class="form-control"
-             v-model="meet.time" />
-
-          </div>
-
-          <div class="form-group">
-            <label>Time Zone</label>
-            <input type="text"
-            class="form-control"
-             v-model="meet.timezone" />
-
-          </div>
-
-          <div class="form-group">
-            <label>Meeting Link</label>
-            <input type="text"
-            class="form-control"
-             v-model="meet.meetingLink"  />
-
-          </div>
-
-          <div class="form-group">
-            <label>User ID</label>
-            <input type="text"
-            class="form-control"
-            placeholder="5fc3fc1194b1a78ea033d63a"
-             v-model="meet.userID"  />
-
-          </div>
-
-          <div class="form-group">
-            <label>To User ID</label>
-            <input type="text"
-            placeholder="602ff3cf264bde4cc0e1ac76"
-            class="form-control"
-             v-model="meet.toUserID" />
-
-          </div>
-
-          <div class="form-group">
-            <button class="btn btn-primary btn-block">Add Meeting</button>
-          </div>
-          
-        </form> -->
-        <!----------------------->
-
-      
       </div>
     </div>
   </div>
@@ -241,16 +137,6 @@ export default {
       this.meet.push(response.data);
       console.log(this.meet[0])
       console.log(this.meet)
-      // this.meetings.push(response.data);
-      // Reset form field
-      // this.name = "";
-      // this.email = "";
-      // this.message = "";
-      // this.toEmail = "";
-      // this.motherTongue = "";
-      // this.date = "";
-      // this.time = "";
-      // this.timezone = "";
     },
   },
 };

@@ -56,7 +56,7 @@
           <router-link :to="{ name: 'premium', params: { id: user._id, premium: user.premium } }" class="nav-link">
             <img
                   src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/271/crown_1f451.png"
-                  alt="Kitten"
+                  alt="Premium"
                   width="25"
                   height="25"
                   style="position: relative; top: -5px"
@@ -72,31 +72,6 @@
       </ul>
     </div>
   </nav>
-
-   <!-- <nav class="navbar navbar-inverse navbar-static-top">
-          <div class="container">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="#">Project name</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-              <ul class="nav navbar-nav">
-                    <li><a href="">Page 1</a>
-                    </li>
-                    <li><a href="">Page 2</a>
-                    </li>
-                    <li><a href="">Page 3</a>
-                    </li>
-
-              </ul>
-            </div>
-          </div>
-        </nav> -->
 </template>
 
 <script>

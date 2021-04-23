@@ -254,7 +254,7 @@ export default {
     const response = await axios.get("api/profileList/");
     this.users = response.data;
     this.imgLink = this.user.imgURL;
-    this.showAll = false;
+    this.showAll = true;
     this.id = this.user._id;
     const responseUser = await axios.get("api/profileList/"+this.id);
     this.thisUser = responseUser.data;
